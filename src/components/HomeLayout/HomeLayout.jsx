@@ -10,9 +10,6 @@ function HomeLayout() {
     const bgColor = darkMode ? "bg-gray-900" : "bg-gradient-to-br from-blue-50 to-indigo-100";
     const textColor = darkMode ? "text-white" : "text-gray-900";
     const descColor = darkMode ? "text-gray-300" : "text-gray-600";
-    const iconBg = darkMode ? "bg-white" : "bg-blue-600";
-    const iconColor = darkMode ? "text-gray-900" : "text-white";
-    const btnBg = darkMode ? "bg-white text-black hover:bg-gray-300" : "bg-blue-600 text-white hover:bg-blue-700";
     const toggleBtnBg = darkMode ? "bg-gray-800 text-yellow-300 hover:bg-gray-700" : "bg-white text-gray-800 hover:bg-gray-200";
 
     return (
@@ -20,7 +17,7 @@ function HomeLayout() {
             {/* Theme toggle button */}
             <button
                 onClick={toggleDarkMode}
-                className={`absolute top-4 right-4 p-2 rounded-full shadow-md transition-colors duration-300 ${toggleBtnBg}`}
+                className={`absolute top-4 right-4 p-2 cursor-pointer rounded-full shadow-md transition-colors duration-300 ${toggleBtnBg}`}
                 aria-label="Toggle theme"
             >
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -29,8 +26,8 @@ function HomeLayout() {
             <div className="container mx-auto px-4 py-20">
                 <div className="text-center">
                     {/* Shopping Bag Icon */}
-                    <div className={`w-20 h-20 ${iconBg} rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg`}>
-                        <ShoppingBag className={`w-10 h-10 ${iconColor}`} />
+                    <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
+                        <ShoppingBag className="w-10 h-10 text-white" />
                     </div>
 
                     {/* Heading */}
@@ -47,7 +44,7 @@ function HomeLayout() {
                     {/* Call to Action Button */}
                     <Link
                         to="/products"
-                        className={`inline-flex items-center px-8 py-4 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl ${btnBg}`}
+                        className="inline-flex items-center px-8 py-4 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700"
                     >
                         Browse Products
                         <ArrowRight className="w-5 h-5 ml-2" />
