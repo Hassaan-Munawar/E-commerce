@@ -1,1 +1,1 @@
-<h1>E-commerce on react: https://h-e-commerce.vercel.app</h1>
+<h1>E-commerce on react: <a href='https://h-e-commerce.vercel.app' target='_blank'>h-e-commerce.vercel.app</a></h1>
