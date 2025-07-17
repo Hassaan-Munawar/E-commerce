@@ -363,7 +363,7 @@ export default function ProductDetailPageCard({ product }) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {relatedProducts.map((relatedProduct, index) => (
                             <Link onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
- to={`/products/${relatedProduct.id}`} className="block" key={`${relatedProduct.id}-${index}`}>
+                                to={`/products/${relatedProduct.id}`} className="block" key={`${relatedProduct.id}-${index}`}>
                                 <div
                                     key={relatedProduct.id}
                                     className={`rounded-lg overflow-hidden h-full flex flex-col justify-between shadow-sm ${darkMode ? "bg-gray-600" : "bg-gray-100"}`}
