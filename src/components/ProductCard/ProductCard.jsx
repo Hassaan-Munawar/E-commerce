@@ -14,12 +14,12 @@ export default function ProductCard({ product }) {
         })
     }
 
-    const getValidImageUrl = (images) => {
-        if (!images || images.length === 0) {
+    const getValidImageUrl = (image) => {
+        if (!image) {
             return "https://via.placeholder.com/300x300?text=No+Image"
         }
 
-        let imageUrl = images[0]
+        let imageUrl = image
         if (typeof imageUrl === "string") {
             imageUrl = imageUrl.replace(/[[\]"]/g, "")
         }
@@ -43,7 +43,7 @@ export default function ProductCard({ product }) {
                 {/* Product Image - Fixed height */}
                 <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
                     <img
-                        src={getValidImageUrl(product.images) || "/placeholder.svg?height=300&width=300"}
+                        src={getValidImageUrl(product.thumbnail) || "/placeholder.svg?height=300&width=300"}
                         alt={product.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                         onError={(e) => {
@@ -58,7 +58,7 @@ export default function ProductCard({ product }) {
                                 }`}
                         >
                             <Tag className="w-3 h-3 mr-1" />
-                            {product.category?.name || "Uncategorized"}
+                            {product.category || "Uncategorized"}
                         </span>
                     </div>
 
@@ -89,12 +89,12 @@ export default function ProductCard({ product }) {
                     <div className={`space-y-2 text-xs mb-4 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
                         <div className="flex items-center">
                             <Calendar className="w-3 h-3 mr-1" />
-                            <span>Created: {formatDate(product.creationAt)}</span>
+                            <span>Created: {formatDate(product.meta.createdAt)}</span>
                         </div>
                         {product.updatedAt !== product.creationAt && (
                             <div className="flex items-center">
                                 <Calendar className="w-3 h-3 mr-1" />
-                                <span>Updated: {formatDate(product.updatedAt)}</span>
+                                <span>Updated: {formatDate(product.meta.updatedAt)}</span>
                             </div>
                         )}
                     </div>

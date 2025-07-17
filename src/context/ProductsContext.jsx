@@ -12,12 +12,12 @@ export default function ProductsProvider({ children }) {
         const fetchProducts = async () => {
             try {
                 setLoading(true)
-                const response = await fetch("https://api.escuelajs.co/api/v1/products")
+                const response = await fetch("https://dummyjson.com/products")
                 if (!response.ok) {
                     throw new Error("Failed to fetch products")
                 }
                 const data = await response.json()
-                setProducts(data)
+                setProducts(data.products)
             } catch (error) {
                 setError(error.message)
                 console.error("Error fetching data:", error)
