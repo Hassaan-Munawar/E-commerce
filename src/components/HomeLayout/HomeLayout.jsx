@@ -1,4 +1,4 @@
-import { ShoppingBag, ArrowRight, Sun, Moon } from "lucide-react"
+import { ShoppingBag, ArrowRight, Sun, Moon, LogOut } from "lucide-react"
 import { useEffect, useRef, useState, useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext"
 import { AuthContext } from "../../context/AuthContext"
@@ -94,9 +94,9 @@ export default function HomeLayout() {
                                         <div className="border-t border-gray-100 my-1"></div>
                                         <button
                                             onClick={handleLogout}
-                                            className="block w-full cursor-pointer text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hover:text-red-900"
+                                            className=" w-full flex items-center gap-3 cursor-pointer text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hover:text-red-900"
                                         >
-                                            Log out
+                                          <LogOut className="w-4 h-4" />  Log out
                                         </button>
                                     </div>
                                 </div>

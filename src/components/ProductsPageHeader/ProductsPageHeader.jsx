@@ -1,4 +1,4 @@
-import { ArrowLeft, Sun, Moon, ShoppingCart } from "lucide-react"
+import { ArrowLeft, Sun, Moon, ShoppingCart, LogOut } from "lucide-react"
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { ThemeContext } from "../../context/ThemeContext";
@@ -67,10 +67,10 @@ export default function ProductsPageHeader() {
                     </div>
                     <div className="flex items-center gap-4">
                         <Link className={`p-2 rounded-lg cursor-pointer transition-colors ${darkMode
-                                    ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
-                                    : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-                                    }`}
-                                     to="/cart"><ShoppingCart className="w-5 h-5" /></Link>
+                            ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
+                            : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                            }`}
+                            to="/cart"><ShoppingCart className="w-5 h-5" /></Link>
 
                         <button
                             onClick={toggleDarkMode}
@@ -111,9 +111,9 @@ export default function ProductsPageHeader() {
                                             <div className="border-t border-gray-100 my-1"></div>
                                             <button
                                                 onClick={handleLogout}
-                                                className="block w-full cursor-pointer text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hover:text-red-900"
+                                                className=" w-full flex items-center gap-3 cursor-pointer text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hover:text-red-900"
                                             >
-                                                Log out
+                                                <LogOut className="w-4 h-4" />  Log out
                                             </button>
                                         </div>
                                     </div>

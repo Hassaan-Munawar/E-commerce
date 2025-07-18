@@ -40,46 +40,17 @@ function App() {
 
   return (
     <BrowserRouter>
-    <ScrollToTop />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
 
         {/* Public Route */}
-        <Route
-          path="/auth"
-          element={
-            <PublicRoute>
-              <Auth />
-            </PublicRoute>
-          }
-        />
-
+        <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
 
         {/* Protected Routes */}
-        <Route
-          path="/products"
-          element={
-            <PrivateRoute>
-              <Products />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <PrivateRoute>
-              <Cart />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/products/:id"
-          element={
-            <PrivateRoute>
-              <ProductDetail />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>} />
+        <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+        <Route path="/products/:id" element={<PrivateRoute><ProductDetail /></PrivateRoute>} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

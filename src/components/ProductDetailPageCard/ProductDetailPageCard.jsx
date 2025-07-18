@@ -371,9 +371,9 @@ export default function ProductDetailPageCard({ product }) {
                                     <img
                                         src={getValidImageUrl(relatedProduct.images) || "/placeholder.svg?height=200&width=200"}
                                         alt={relatedProduct.title}
-                                        className="w-full h-48 object-cover"
+                                        className="w-full h-full object-cover"
                                     />
-                                    <div className="p-4">
+                                    <div className={`p-4 ${darkMode ? "bg-gray-700" : "bg-white"}`}>
                                         <h3 className={`font-semibold text-lg mb-1  ${darkMode ? "text-white" : "text-gray-900"}`}>
                                             {relatedProduct.title}
                                         </h3>

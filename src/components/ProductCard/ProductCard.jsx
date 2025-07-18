@@ -36,12 +36,12 @@ export default function ProductCard({ product }) {
         <Link to={`/products/${product.id}`} className="group block h-full">
             <div
                 className={`rounded-lg shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border h-full flex flex-col ${darkMode
-                        ? "bg-gray-800 border-gray-700 hover:border-gray-600"
-                        : "bg-white border-gray-200 hover:border-gray-300"
+                    ? "bg-gray-800 border-gray-700 hover:border-gray-600"
+                    : "bg-white border-gray-200 hover:border-gray-300"
                     }`}
             >
                 {/* Product Image - Fixed height */}
-                <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
+                <div className={`relative aspect-square overflow-hidden ${darkMode ? "bg-gray-700" : "bg-gray-100"}  flex-shrink-0`}>
                     <img
                         src={getValidImageUrl(product.thumbnail) || "/placeholder.svg?height=300&width=300"}
                         alt={product.title}
