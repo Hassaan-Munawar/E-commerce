@@ -365,7 +365,6 @@ export default function ProductDetailPageCard({ product }) {
                             <Link onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                                 to={`/products/${relatedProduct.id}`} className="block" key={`${relatedProduct.id}-${index}`}>
                                 <div
-                                    key={relatedProduct.id}
                                     className={`rounded-lg overflow-hidden h-full flex flex-col justify-between shadow-sm ${darkMode ? "bg-gray-600" : "bg-gray-100"}`}
                                 >
                                     <img
