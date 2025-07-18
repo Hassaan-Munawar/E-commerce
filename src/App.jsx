@@ -10,6 +10,7 @@ import ProductDetail from './pages/ProductDetail';
 import PageNotFound from './pages/PageNotFound';
 import Cart from './pages/Cart';
 import Loading from './components/Loading/Loading';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 function App() {
   const { user, loading } = useContext(AuthContext);
@@ -39,6 +40,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
 
