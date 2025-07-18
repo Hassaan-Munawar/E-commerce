@@ -57,9 +57,9 @@ export default function HomeLayout() {
                 <div className="flex items-center gap-4">
                     <button
                         onClick={toggleDarkMode}
-                        className={`p-2 rounded-lg cursor-pointer transition-colors ${darkMode
+                        className={`p-3 rounded-lg cursor-pointer transition-colors ${darkMode
                             ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
-                            : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                            : "bg-gray-200 hover:bg-gray-300 text-gray-700"
                             }`}
                         aria-label="Toggle theme"
                     >
@@ -136,7 +136,7 @@ export default function HomeLayout() {
                     ) : (
                         <button
                             onClick={() => toast.error("Please log in to browse products.")}
-                            className="inline-flex items-center px-8 py-4 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700"
+                            className="inline-flex cursor-pointer items-center px-8 py-4 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700"
                         >
                             Browse Products
                             <ArrowRight className="w-5 h-5 ml-2" />

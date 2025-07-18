@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import supabase from "../utils/supabase";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { Loader2, Moon, Sun } from "lucide-react";
+import { ArrowLeft, Loader2, Moon, Sun } from "lucide-react";
 import { ThemeContext } from "../context/ThemeContext";
-import googleIcon from "../assets/google-icon.png"; 
+import googleIcon from "../assets/google-icon.png";
 
 export default function Auth() {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
@@ -75,6 +75,16 @@ export default function Auth() {
 
   return (
     <>
+      <div className="absolute top-5 z-10 left-5 flex items-center gap-3">
+        <Link
+          to="/"
+          className={`inline-flex items-center transition-colors ${darkMode ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Home
+        </Link>
+        <div className={`h-6 w-px ${darkMode ? "bg-gray-600" : "bg-gray-300"}`} />
+      </div>
 
       <button
         onClick={toggleDarkMode}
@@ -92,8 +102,8 @@ export default function Auth() {
       >
         <div
           className={`w-full max-w-md rounded-lg border shadow-lg p-6 md:p-8 ${darkMode
-              ? "bg-gray-800 border-gray-700 text-gray-50"
-              : "bg-white border-gray-200 text-gray-900"
+            ? "bg-gray-800 border-gray-700 text-gray-50"
+            : "bg-white border-gray-200 text-gray-900"
             }`}
         >
           <div className={`flex border-b ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
@@ -106,12 +116,12 @@ export default function Auth() {
                 setErrorMessage("");
               }}
               className={`flex-1 py-2 cursor-pointer text-center font-medium text-sm transition-colors duration-200 ${activeTab === "login"
-                  ? darkMode
-                    ? "border-b-2 border-blue-400 text-blue-400"
-                    : "border-b-2 border-blue-600 text-blue-600"
-                  : darkMode
-                    ? "text-gray-400 hover:text-gray-200"
-                    : "text-gray-500 hover:text-gray-700"
+                ? darkMode
+                  ? "border-b-2 border-blue-400 text-blue-400"
+                  : "border-b-2 border-blue-600 text-blue-600"
+                : darkMode
+                  ? "text-gray-400 hover:text-gray-200"
+                  : "text-gray-500 hover:text-gray-700"
                 }`}
             >
               Login
@@ -125,12 +135,12 @@ export default function Auth() {
                 setErrorMessage("");
               }}
               className={`flex-1 py-2 cursor-pointer text-center font-medium text-sm transition-colors duration-200 ${activeTab === "signup"
-                  ? darkMode
-                    ? "border-b-2 border-blue-400 text-blue-400"
-                    : "border-b-2 border-blue-600 text-blue-600"
-                  : darkMode
-                    ? "text-gray-400 hover:text-gray-200"
-                    : "text-gray-500 hover:text-gray-700"
+                ? darkMode
+                  ? "border-b-2 border-blue-400 text-blue-400"
+                  : "border-b-2 border-blue-600 text-blue-600"
+                : darkMode
+                  ? "text-gray-400 hover:text-gray-200"
+                  : "text-gray-500 hover:text-gray-700"
                 }`}
             >
               Sign Up
@@ -158,8 +168,8 @@ export default function Auth() {
                       }}
                       required
                       className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-400 ${darkMode
-                          ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
-                          : "border-gray-300 bg-white text-gray-900"
+                        ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
+                        : "border-gray-300 bg-white text-gray-900"
                         }`}
                     />
                   </div>
@@ -180,8 +190,8 @@ export default function Auth() {
                     }}
                     required
                     className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-400 ${darkMode
-                        ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
-                        : "border-gray-300 bg-white text-gray-900"
+                      ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
+                      : "border-gray-300 bg-white text-gray-900"
                       }`}
                   />
                 </div>
@@ -200,8 +210,8 @@ export default function Auth() {
                     }}
                     required
                     className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-400 ${darkMode
-                        ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
-                        : "border-gray-300 bg-white text-gray-900"
+                      ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
+                      : "border-gray-300 bg-white text-gray-900"
                       }`}
                   />
                 </div>
@@ -211,8 +221,8 @@ export default function Auth() {
                 <button
                   type="submit"
                   className={`inline-flex items-center cursor-pointer justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium ${darkMode
-                      ? "bg-blue-500 hover:bg-blue-600 text-white"
-                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                    ? "bg-blue-500 hover:bg-blue-600 text-white"
+                    : "bg-blue-600 hover:bg-blue-700 text-white"
                     }`}
                 >
                   {loadingForm ? (
@@ -228,8 +238,8 @@ export default function Auth() {
                   type="button"
                   onClick={handleGoogleLogin}
                   className={`inline-flex items-center cursor-pointer justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium border ${darkMode
-                      ? "border-gray-600 bg-transparent hover:bg-gray-700 text-gray-100"
-                      : "border-gray-300 bg-transparent hover:bg-gray-100 text-gray-700"
+                    ? "border-gray-600 bg-transparent hover:bg-gray-700 text-gray-100"
+                    : "border-gray-300 bg-transparent hover:bg-gray-100 text-gray-700"
                     }`}
                 > <img className="w-5 h-5 mr-2" src={googleIcon} alt="google-icon" />
                   Continue with Google
