@@ -8,17 +8,29 @@ import Auth from './pages/Auth';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import PageNotFound from './pages/PageNotFound';
+import Cart from './pages/Cart';
+import Loading from './components/Loading/Loading';
 
 function App() {
   const { user, loading } = useContext(AuthContext);
 
-  // Helper to protect private routes
   const PrivateRoute = ({ children }) => {
     const location = useLocation();
 
-    if (loading) return <div className="text-center mt-10">Loading...</div>;
+    if (loading) return <Loading />
 
     if (!user) {
+      return <Navigate to="/" state={{ from: location }} replace />;
+    }
+
+    return children;
+  };
+
+  const PublicRoute = ({ children }) => {
+    const { user } = useContext(AuthContext);
+    const location = useLocation();
+
+    if (user) {
       return <Navigate to="/" state={{ from: location }} replace />;
     }
 
@@ -31,7 +43,15 @@ function App() {
         <Route path="/" element={<Home />} />
 
         {/* Public Route */}
-        <Route path="/auth" element={<Auth />} />
+        <Route
+          path="/auth"
+          element={
+            <PublicRoute>
+              <Auth />
+            </PublicRoute>
+          }
+        />
+
 
         {/* Protected Routes */}
         <Route
@@ -39,6 +59,14 @@ function App() {
           element={
             <PrivateRoute>
               <Products />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PrivateRoute>
+              <Cart />
             </PrivateRoute>
           }
         />

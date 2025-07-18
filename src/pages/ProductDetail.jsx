@@ -30,7 +30,7 @@ function ProductDetail() {
 
   if (loading) {
     return (
-      <Loading text={"Loading Product..."} />
+      <Loading />
     )
   }
 

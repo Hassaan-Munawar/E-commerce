@@ -12,7 +12,7 @@ function Products() {
 
   if (loading && products.length === 0) {
     return (
-      <Loading text={"Loading products..."} />
+      <Loading />
     )
   }
 

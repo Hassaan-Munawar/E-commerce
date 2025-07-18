@@ -28,11 +28,11 @@ export default function ProductsProvider({ children }) {
 
         fetchProducts()
     }, []);
-    
 
-   
+
+
     return (
-        <ProductsContext.Provider value={{ products, setProducts,loading, setLoading, error, setError }}>
+        <ProductsContext.Provider value={{ products, loading, setLoading, error }}>
             {children}
         </ProductsContext.Provider>
     );
