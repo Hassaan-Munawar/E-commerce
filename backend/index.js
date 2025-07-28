@@ -1,7 +1,7 @@
-import express from 'express';
+import express from "express";
 import "dotenv/config"
 import cors from "cors";
-import connectDb from './config/connectDb.js';
+import connectDb from "./config/connectDb.js";
 
 const app = express();
 
@@ -13,12 +13,15 @@ connectDb();
 
 
 app.get('/', (req, res) => {
-    res.send('Hi World!');
+    res.json([
+        { name: "Hassaan Munawar", email: "hassaan@gmail.com" },
+        { name: "Hassaan Munawar", email: "hassaan@gmail.com" },
+        { name: "Hassaan Munawar", email: "hassaan@gmail.com" },
+        { name: "Hassaan Munawar", email: "hassaan@gmail.com" },
+        { name: "Hassaan Munawar", email: "hassaan@gmail.com" },
+
+    ]);
 });
-
-
-app.use('/api/users', userRoutes);
-
 
 
 app.listen(process.env.PORT, () => console.log("Server is running on PORT " + process.env.PORT));
