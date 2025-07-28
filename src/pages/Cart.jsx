@@ -1,8 +1,7 @@
+import CartLayout from "../components/CartLayout/CartLayout"
 
-function Cart() {
+export default function Cart() {
   return (
-    <div>Cart</div>
+    <CartLayout />
   )
 }
-
-export default Cart

@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')).render(
     <AuthProvider>
       <ProductsProvider>
         <ThemeProvider>
-          <ToastContainer position="top-left" />
+          <ToastContainer position="bottom-right" />
           <App />
         </ThemeProvider>
       </ProductsProvider>

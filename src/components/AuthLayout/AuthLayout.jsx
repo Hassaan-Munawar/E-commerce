@@ -71,6 +71,8 @@ export default function AuthLayout() {
       setErrorMessage(error.message);
     }
     setLoadingForm(false);
+    toast.success("Login successful!");
+
   };
 
   return (
@@ -160,7 +162,6 @@ export default function AuthLayout() {
                     </label>
                     <input
                       id="name"
-                      placeholder="John Doe"
                       value={fullName}
                       onChange={(e) => {
                         setFullName(e.target.value);
@@ -182,7 +183,6 @@ export default function AuthLayout() {
                   <input
                     id="email"
                     type="email"
-                    placeholder="you@example.com"
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
