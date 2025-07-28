@@ -5,6 +5,7 @@ import connectDb from './config/connectDb.js';
 
 const app = express();
 
+
 app.use(express.json());
 app.use(cors());
 
@@ -14,6 +15,9 @@ connectDb();
 app.get('/', (req, res) => {
     res.send('Hi World!');
 });
+
+
+app.use('/api/users', userRoutes);
 
 
 
