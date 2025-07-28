@@ -12,7 +12,7 @@ app.use(cors());
 connectDb();
 
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     res.json([
         { name: "Hassaan Munawar", email: "hassaan@gmail.com" },
         { name: "Hassaan Munawar", email: "hassaan@gmail.com" },
