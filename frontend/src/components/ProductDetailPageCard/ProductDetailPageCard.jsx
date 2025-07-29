@@ -68,10 +68,10 @@ export default function ProductDetailPageCard({ product }) {
         ? products
             .filter(
                 (p) =>
-                    p.id !== product.id && // Exclude current product
+                    p._id !== product._id && // Exclude current product
                     (p.category === product.category || p.brand === product.brand), // Same category or brand
             )
-            .slice(0, 4) // Limit to 4 related products
+            .slice(0,4) // Limit to 4 related products
         : []
 
     return (
@@ -361,9 +361,9 @@ export default function ProductDetailPageCard({ product }) {
                 >
                     <p className={`text-xl mb-8 ${darkMode ? "text-white" : "text-gray-900"}`}>Related Products</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {relatedProducts.map((relatedProduct, index) => (
+                        {relatedProducts.map((relatedProduct) => (
                             <Link onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                                to={`/products/${relatedProduct.id}`} className="block" key={`${relatedProduct.id}-${index}`}>
+                                to={`/products/${relatedProduct._id}`} className="block" key={relatedProduct._id}>
                                 <div
                                     className={`rounded-lg overflow-hidden h-full flex flex-col justify-between shadow-sm ${darkMode ? "bg-gray-600" : "bg-gray-100"}`}
                                 >

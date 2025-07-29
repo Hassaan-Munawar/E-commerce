@@ -12,7 +12,7 @@ export default function ProductsProvider({ children }) {
         const fetchProducts = async () => {
             try {
                 setLoading(true)
-                const response = await fetch("https://dummyjson.com/products")
+                const response = await fetch("https://h-e-commerce-backend.vercel.app/products")
                 if (!response.ok) {
                     throw new Error("Failed to fetch products")
                 }

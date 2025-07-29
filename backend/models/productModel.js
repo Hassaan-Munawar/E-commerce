@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 const productSchema = new Schema({
-
-    "id": { "type": "number", "required": true },
     "title": { "type": "string", "required": true },
     "description": { "type": "string", "required": true },
     "category": { "type": "string", "required": true },
@@ -67,10 +65,6 @@ const productSchema = new Schema({
         "required": true
     },
     "thumbnail": { "type": "string", "format": "uri", "required": true }
-
-
-
-
 });
 
 const Productmodel = mongoose.model('Products', productSchema);

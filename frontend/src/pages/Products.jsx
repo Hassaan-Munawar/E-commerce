@@ -47,8 +47,8 @@ function Products() {
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product, index) => {
-            return <ProductCard key={`${product.id}-${index}`} product={product} />
+          {products.map((product) => {
+            return <ProductCard key={product._id} product={product} />
           }
           )}
         </div>

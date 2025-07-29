@@ -33,7 +33,7 @@ export default function ProductCard({ product }) {
     }
 
     return (
-        <Link to={`/products/${product.id}`} className="group block h-full">
+        <Link to={`/products/${product._id}`} className="group block h-full">
             <div
                 className={`rounded-lg shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border h-full flex flex-col ${darkMode
                     ? "bg-gray-800 border-gray-700 hover:border-gray-600"
