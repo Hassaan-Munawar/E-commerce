@@ -15,6 +15,6 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 
-app.use("/products", productRoutes);
+app.use("/api/products", productRoutes);
 
 app.listen(process.env.PORT, () => console.log("Server is running on PORT " + process.env.PORT))
