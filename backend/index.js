@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 
-app.use("/api/users", (req, res) => {
+app.use("/users", (req, res) => {
     res.send("User API Endpoint");
 });
 
