@@ -4,7 +4,6 @@ import "dotenv/config";
 import connectDb from "./config/connectDb.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import { authenticateUser } from "./middleware/authentication.js";
 
 const app = express();
 
@@ -13,8 +12,8 @@ app.use(cors());
 
 connectDb();
 
-app.get("/", authenticateUser, (req, res) => {
-    res.send('Welcome '+ req.user.full_name);
+app.get("/", (req, res) => {
+    res.send("Hello from the backend!");
 });
 
 app.use("/products", productRoutes);
