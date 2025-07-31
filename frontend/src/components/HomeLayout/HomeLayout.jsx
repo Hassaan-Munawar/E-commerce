@@ -69,7 +69,7 @@ export default function HomeLayout() {
                         <div className="relative" ref={dropdownRef}>
                             <div
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                                className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center cursor-pointer"
+                                className="relative w-11 h-11 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center cursor-pointer"
                             >
                                 {user.user_metadata?.avatar_url ? (
                                     <img
