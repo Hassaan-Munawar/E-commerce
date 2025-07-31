@@ -13,11 +13,11 @@ export default function AuthProvider({ children }) {
   const { setUserInfo } = useContext(UserInfoContext);
 
   // Utility to fetch user info from backend
-  const fetchAndSetUserInfo = async (userId) => {
+  const fetchAndSetUserInfo = async (userId, full_name, email) => {
     if (!userId) return;
 
     try {
-      axios.post(AppRoutes.login, { id: userId }).then((response) => {
+      axios.post(AppRoutes.login, { id: userId, full_name: full_name, email: email }).then((response) => {
         setUserInfo(response?.data?.data);
       })
     } catch (error) {
@@ -32,7 +32,7 @@ export default function AuthProvider({ children }) {
       setSession(session);
       const user = session?.user || null;
       setUser(user);
-      if (session?.user?.id) fetchAndSetUserInfo(session?.user?.id);
+      if (session?.user?.id) fetchAndSetUserInfo(session?.user?.id, session?.user?.user_metadata?.full_name, session?.user?.email);
       setLoading(false);
     });
 

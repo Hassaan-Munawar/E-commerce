@@ -8,14 +8,12 @@ import { Link } from "react-router"
 import { UserInfoContext } from "../../context/UserInfoContext";
 
 export default function HomeLayout() {
-    const { darkMode ,setDarkMode } = useContext(ThemeContext)
+    const { darkMode, setDarkMode } = useContext(ThemeContext)
     const { user } = useContext(AuthContext)
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const dropdownRef = useRef(null)
-    const {userInfo} = useContext(UserInfoContext)
-    console.log(userInfo);
-    
-    
+    const { userInfo, setUserInfo } = useContext(UserInfoContext)
+
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev)
     }
@@ -33,6 +31,7 @@ export default function HomeLayout() {
 
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut()
+        setUserInfo(null)
         if (!error) {
             toast.success("Logged out successfully!")
             setDropdownOpen(false)
@@ -99,7 +98,7 @@ export default function HomeLayout() {
                                             onClick={handleLogout}
                                             className=" w-full flex items-center gap-3 cursor-pointer text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hover:text-red-900"
                                         >
-                                          <LogOut className="w-4 h-4" />  Log out
+                                            <LogOut className="w-4 h-4" />  Log out
                                         </button>
                                     </div>
                                 </div>

@@ -5,9 +5,11 @@ import { ArrowLeft, Sun, Moon, ShoppingCart, LogOut } from "lucide-react"
 import { AuthContext } from "../../context/AuthContext";
 import supabase from "../../utils/supabase";
 import { toast } from "react-toastify";
+import { UserInfoContext } from "../../context/UserInfoContext";
 
 function ProductDetailPageHeader() {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
+  const { userInfo, setUserInfo } = useContext(UserInfoContext);
   const { user } = useContext(AuthContext)
 
   const toggleDarkMode = () => {
@@ -30,6 +32,7 @@ function ProductDetailPageHeader() {
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut()
+    setUserInfo(null)
     if (!error) {
       toast.success("Logged out successfully!")
       setDropdownOpen(false)

@@ -5,11 +5,13 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import supabase from "../../utils/supabase";
+import { UserInfoContext } from "../../context/UserInfoContext";
 
 
 export default function ProductsPageHeader() {
     const { darkMode, setDarkMode } = useContext(ThemeContext);
     const { user } = useContext(AuthContext)
+    const { userInfo, setUserInfo } = useContext(UserInfoContext);
 
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev)
@@ -31,6 +33,7 @@ export default function ProductsPageHeader() {
 
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut()
+        setUserInfo(null)
         if (!error) {
             toast.success("Logged out successfully!")
             setDropdownOpen(false)
