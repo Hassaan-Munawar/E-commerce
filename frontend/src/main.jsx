@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import UserInfoProvider from './context/UserInfoContext.jsx'
 
 createRoot(document.getElementById('root')).render(
+  <StrictMode>
     <UserInfoProvider>
       <AuthProvider>
         <ProductsProvider>
@@ -19,4 +20,5 @@ createRoot(document.getElementById('root')).render(
         </ProductsProvider>
       </AuthProvider>
     </UserInfoProvider>
+  </StrictMode>
 )

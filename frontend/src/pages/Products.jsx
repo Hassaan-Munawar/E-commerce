@@ -4,6 +4,7 @@ import { ProductsContext } from "../context/ProductsContext"
 import ProductCard from "../components/ProductCard/ProductCard"
 import ProductsPageHeader from "../components/ProductsPageHeader/ProductsPageHeader"
 import Loading from "../components/Loading/Loading"
+import { RefreshCcw } from "lucide-react"
 
 function Products() {
   const { products, error, loading } = useContext(ProductsContext)
@@ -31,6 +32,17 @@ function Products() {
                 Error Loading Products
               </h2>
               <p className={`mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>{error}</p>
+              <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                Please try refreshing the page or check back later.
+              </p>
+              <div className="mt-6">
+                <button
+                  onClick={() => window.location.reload()}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${darkMode ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-blue-100 text-blue-600 hover:bg-blue-200"}`}
+                >
+                  Refresh Page <RefreshCcw className="inline-block ml-1 w-4 h-4" />
+                </button>
+                </div>
             </div>
           </div>
         </div>

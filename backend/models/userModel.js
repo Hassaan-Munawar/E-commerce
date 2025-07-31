@@ -7,7 +7,7 @@ const userSchema = new Schema({
     "cart": {
         "type": [
             {
-                "productId": { "type": mongoose.Types.ObjectId, "ref": "Products", "required": true },
+                "productId": { "type": "string", "required": true },
                 "quantity": { "type": "number", "default": 1 }
             }
         ],

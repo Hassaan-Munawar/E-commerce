@@ -7,10 +7,12 @@ import { Link } from "react-router";
 import { Sun, Moon, LogOut } from "lucide-react"
 import supabase from "../../utils/supabase"
 import { toast } from "react-toastify"
+import { ProductsContext } from "../../context/ProductsContext"
 
 export default function CartLayout() {
   const { darkMode, setDarkMode } = useContext(ThemeContext)
   const { user } = useContext(AuthContext)
+  const {products} = useContext(ProductsContext)
   const { userInfo, setUserInfo } = useContext(UserInfoContext)
 
   const [cartItems, setCartItems] = useState([
@@ -40,6 +42,7 @@ export default function CartLayout() {
       color: "Brown",
     },
   ])
+  
 
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity === 0) return removeItem(id)
@@ -216,14 +219,14 @@ export default function CartLayout() {
                         <div className="flex items-center justify-between mt-4">
                           <div className="flex items-center border-2 border-gray-300 rounded-lg overflow-hidden">
                             <button
-                              className="h-8 w-8 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white transition-colors"
+                              className="h-8 w-8 flex cursor-pointer items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white transition-colors"
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                             >
                               <Minus className="h-3 w-3" />
                             </button>
                             <span className="px-3 py-1 text-sm font-medium text-center border-l border-r border-gray-300">{item.quantity}</span>
                             <button
-                              className="h-8 w-8 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white transition-colors"
+                              className="h-8 w-8 flex cursor-pointer items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white transition-colors"
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             >
                               <Plus className="h-3 w-3" />
@@ -231,7 +234,7 @@ export default function CartLayout() {
                           </div>
 
                           <button
-                            className={`inline-flex items-center px-3 py-1 text-sm rounded-md transition-colors duration-200
+                            className={`inline-flex cursor-pointer items-center px-3 py-1 text-sm rounded-md transition-colors duration-200
                             ${darkMode ? "bg-gray-700 text-red-400 hover:bg-gray-600 hover:text-red-300"
                                        : "bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-900"}`}
                             onClick={() => removeItem(item.id)}
@@ -290,7 +293,7 @@ export default function CartLayout() {
                   <span>${total.toFixed(2)}</span>
                 </div>
 
-                <button className="w-full mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <button className="w-full mt-6 cursor-pointer px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                   Proceed to Checkout
                 </button>
 
