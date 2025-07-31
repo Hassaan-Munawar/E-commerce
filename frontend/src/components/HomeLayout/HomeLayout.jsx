@@ -5,13 +5,16 @@ import { AuthContext } from "../../context/AuthContext"
 import supabase from "../../utils/supabase"
 import { toast } from "react-toastify"
 import { Link } from "react-router"
+import { UserInfoContext } from "../../context/UserInfoContext";
 
 export default function HomeLayout() {
     const { darkMode ,setDarkMode } = useContext(ThemeContext)
     const { user } = useContext(AuthContext)
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const dropdownRef = useRef(null)
-
+    const {userInfo} = useContext(UserInfoContext)
+    console.log(userInfo);
+    
     
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev)

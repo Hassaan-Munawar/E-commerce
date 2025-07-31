@@ -4,6 +4,7 @@ import "dotenv/config";
 import connectDb from "./config/connectDb.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import { authenticateUser } from "./middleware/authentication.js";
 
 const app = express();
 
@@ -12,11 +13,11 @@ app.use(cors());
 
 connectDb();
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
+app.get("/", authenticateUser, (req, res) => {
+    res.send('Welcome '+ req.user.full_name);
 });
 
 app.use("/products", productRoutes);
-app.use("/users", userRoutes);
+app.use("/user", userRoutes);
 
 app.listen(process.env.PORT, () => console.log("Server is running on " + "http://localhost:" + process.env.PORT));

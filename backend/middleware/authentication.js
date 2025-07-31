@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Usermodel from "../models/userModel";
+import Usermodel from "../models/userModel.js";
 
 export async function authenticateUser(req, res, next) {
     const bearerToken = req.headers?.authorization;

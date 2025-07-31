@@ -5,10 +5,15 @@ import { ArrowLeft, Loader2, Moon, Sun } from "lucide-react";
 import googleIcon from "../../assets/google-icon.png";
 import { ThemeContext } from "../../context/ThemeContext";
 import supabase from "../../utils/supabase";
+import axios from "axios"
+import { AppRoutes } from "../../constant/AppRoutes";
+import { UserInfoContext } from "../../context/UserInfoContext";
 
 export default function AuthLayout() {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
   const [activeTab, setActiveTab] = useState("login");
+  const { setUserInfo } = useContext(UserInfoContext)
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,10 +30,17 @@ export default function AuthLayout() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoadingForm(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setErrorMessage(error.message);
     } else {
+      const id = data.user.id;
+    
+       axios.post(AppRoutes.login, { id: id }).then((data) => {
+        setUserInfo(data?.data?.data)
+      }).catch((error) => {
+        setErrorMessage(error.message == 'Request failed with status code 403' ? error.response.data.message : error.message)
+      })
       toast.success("Login successful!");
       navigate("/");
     }
@@ -38,7 +50,7 @@ export default function AuthLayout() {
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoadingForm(true);
-    const { error } = await supabase.auth.signUp({
+    const { error, data } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -51,6 +63,19 @@ export default function AuthLayout() {
     if (error) {
       setErrorMessage(error.message);
     } else {
+      const id = data.user.id;
+      
+      axios.post(AppRoutes.login,
+        {
+          id: id,
+          full_name: data.user.user_metadata.full_name,
+          email: data.user.email
+        }
+      ).then((data) => {
+        setUserInfo(data?.data?.data)
+      }).catch((error) => {
+        setErrorMessage(error.message == 'Request failed with status code 403' ? error.response.data.message : error.message)
+      })
       toast.success("Signup successful!");
       navigate("/");
     }

@@ -6,16 +6,17 @@ import ThemeProvider from './context/ThemeContext.jsx'
 import ProductsProvider from './context/ProductsContext.jsx'
 import AuthProvider from './context/AuthContext.jsx'
 import { ToastContainer } from 'react-toastify';
+import UserInfoProvider from './context/UserInfoContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <AuthProvider>
-      <ProductsProvider>
-        <ThemeProvider>
-          <ToastContainer position="bottom-right" />
-          <App />
-        </ThemeProvider>
-      </ProductsProvider>
-    </AuthProvider>
-  </StrictMode>,
+    <UserInfoProvider>
+      <AuthProvider>
+        <ProductsProvider>
+          <ThemeProvider>
+            <ToastContainer position="bottom-right" />
+            <App />
+          </ThemeProvider>
+        </ProductsProvider>
+      </AuthProvider>
+    </UserInfoProvider>
 )
