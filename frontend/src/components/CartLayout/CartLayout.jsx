@@ -233,9 +233,9 @@ export default function CartLayout() {
 
                     {/* Quantity + Remove */}
                     <div className="flex items-center justify-between mt-4">
-                      <div className="flex items-center border border-gray-300 rounded-lg">
+                      <div className="flex items-center border-2 border-gray-300 rounded-lg">
                         <button
-                          className="h-8 w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-l-lg"
+                          className="h-8 w-8 flex items-center justify-center hover:bg-gray-100 hover:text-black cursor-pointer"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         >
                           <Minus className="h-3 w-3" />
@@ -244,14 +244,14 @@ export default function CartLayout() {
                           {item.quantity}
                         </span>
                         <button
-                          className="h-8 w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-lg"
+                          className="h-8 w-8 flex items-center justify-center hover:bg-gray-100 hover:text-black cursor-pointer"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                         >
                           <Plus className="h-3 w-3" />
                         </button>
                       </div>
                       <button
-                        className="inline-flex items-center px-3 py-1 text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
+                        className="inline-flex items-center px-3 py-1 text-sm cursor-pointer dark:text-red-400 text-red-700 dark:hover:text-red-300 bg-red-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
                         onClick={() => removeItem(item.id)}
                       >
                         <Trash2 className="h-4 w-4 mr-1" />
@@ -311,7 +311,7 @@ export default function CartLayout() {
               <span>${total.toFixed(2)}</span>
             </div>
 
-            <button className="w-full mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
+            <button className="w-full cursor-pointer mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
               Proceed to Checkout
             </button>
 
