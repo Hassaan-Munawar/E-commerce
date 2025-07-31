@@ -304,7 +304,7 @@ export default function ProductDetailPageCard({ product }) {
 
                         <div className={`pt-6 border-t ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
                             <button
-                                className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
+                                className={`w-full cursor-pointer py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
                                     }`}
                             >
                                 <ShoppingCart className="w-5 h-5 mr-2" />

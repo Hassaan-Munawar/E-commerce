@@ -31,8 +31,8 @@ export default function HomeLayout() {
 
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut()
-        setUserInfo(null)
         if (!error) {
+            setUserInfo(null)
             toast.success("Logged out successfully!")
             setDropdownOpen(false)
         } else {
