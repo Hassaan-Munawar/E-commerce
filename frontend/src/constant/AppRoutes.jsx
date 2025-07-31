@@ -1,5 +1,6 @@
-const dev = process.env.DEV 
-const prod = process.env.PROD
+const dev = import.meta.env.VITE_DEV;
+const prod = import.meta.env.VITE_PROD;
+
 
 const BASE_URL = prod
 

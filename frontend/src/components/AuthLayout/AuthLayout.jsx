@@ -62,12 +62,10 @@ export default function AuthLayout() {
 
     if (error) {
       setErrorMessage(error.message);
-    } else {
-      const id = data.user.id;
-      
+    } else {      
       axios.post(AppRoutes.login,
         {
-          id: id,
+          id: data.user.id,
           full_name: data.user.user_metadata.full_name,
           email: data.user.email
         }
@@ -88,13 +86,27 @@ export default function AuthLayout() {
     setFullName("");
     setPassword("");
     setEmail("");
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { error,data } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });
-
     if (error) {
       setErrorMessage(error.message);
     }
+    else{
+      
+      axios.post(AppRoutes.login,
+        {
+          id: data.user.id,
+          full_name: data.user.user_metadata.full_name,
+          email: data.user.email
+        }
+      ).then((data) => {
+        setUserInfo(data?.data?.data)
+      }).catch((error) => {
+        setErrorMessage(error.message == 'Request failed with status code 403' ? error.response.data.message : error.message)
+      })
+    }
+
     setLoadingForm(false);
     toast.success("Login successful!");
 
