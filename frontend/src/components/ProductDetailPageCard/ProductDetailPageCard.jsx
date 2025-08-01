@@ -71,7 +71,11 @@ export default function ProductDetailPageCard({ product }) {
         axios.put(AppRoutes.editUser, { id: userInfo?._id, cart })
             .then((response) => {
                 toast.success("Product added to cart successfully!")
-                setUserInfo(response?.data?.data)
+                setUserInfo(prev => ({
+                    ...prev,
+                    cart: cart
+                }));
+
             })
             .catch((error) => {
                 toast.error(error.message)

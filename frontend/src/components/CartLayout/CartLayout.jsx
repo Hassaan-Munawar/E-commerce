@@ -34,14 +34,12 @@ export default function CartLayout() {
 
 
   useEffect(() => {
+    setLoadingCart(true)
     if (!products || !userInfo?.cart?.length) {
       setCartItems([])
       setLoadingCart(false)
       return
     }
-
-    setLoadingCart(true)
-
     const cartProductsWithQuantity = userInfo.cart
       .map((cartItem) => {
         const product = products.find((p) => p._id === cartItem.productId)
@@ -68,39 +66,52 @@ export default function CartLayout() {
   }
 
   const updateQuantity = (productId, newQuantity) => {
+    setLoadingCart(true)
     if (newQuantity === 0) return removeItem(productId);
 
-    const updatedCart = userInfo?.cart.map(item =>
-      item.productId == productId ? { ...item, quantity: newQuantity } : item
+    const updatedCart = userInfo?.cart?.map(item =>
+      item.productId === productId ? { ...item, quantity: newQuantity } : item
     );
 
-    axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart }).then(response => {
-      setCartItems(items =>
-        items.map(item =>
-          item._id == productId ? { ...item, quantity: newQuantity } : item
-        )
-      );
-      setUserInfo(response?.data?.data)
-    })
+    axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart })
+      .then(() => {
+        setCartItems(items =>
+          items.map(item =>
+            item._id === productId ? { ...item, quantity: newQuantity } : item
+          )
+        );
+        setUserInfo(prev => ({
+          ...prev,
+          cart: updatedCart
+        }));
+      })
       .catch((error) => {
         toast.error(error.message);
         console.error(error.message);
       });
+    setLoadingCart(false);
   };
 
 
   const removeItem = (productId) => {
-    const updatedCart = userInfo?.cart.filter(item => item.productId !== productId);
+    setLoadingCart(true);
+    const updatedCart = userInfo?.cart?.filter(item => item.productId !== productId);
 
-    axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart }).then(response => {
-      setCartItems(items => items.filter(item => item._id !== productId));
-      setUserInfo(response?.data?.data)
-    })
+    axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart })
+      .then(() => {
+        setCartItems(items => items.filter(item => item._id !== productId));
+        setUserInfo(prev => ({
+          ...prev,
+          cart: updatedCart
+        }));
+      })
       .catch((error) => {
         toast.error(error.message);
         console.error(error.message);
       });
+    setLoadingCart(false);
   };
+
 
 
 
@@ -139,19 +150,95 @@ export default function CartLayout() {
   }
 
   if (!loading && !loadingCart && cartItems.length === 0) {
+
     return (
-      <div className={`min-h-screen py-8 ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
-        <div className="max-w-4xl mx-auto px-4">
+      <div className={`min-h-screen ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
+        {/* Header */}
+        <div
+        className={`shadow-sm h-[15vh] transition-colors ${darkMode ? "bg-gray-800 border-b border-gray-700" : "bg-white border-b border-gray-200"}`}
+      >
+        <div className="container flex justify-between mx-auto px-4 py-6">
+          <div className="flex items-center gap-3">
+            <Link
+              to="/products"
+              className={`inline-flex items-center transition-colors ${darkMode ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"
+                }`}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Continue Shopping
+            </Link>
+            <div className={`h-6 w-px ${darkMode ? "bg-gray-600" : "bg-gray-300"}`} />
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleDarkMode}
+              className={`p-2 rounded-lg cursor-pointer transition-colors duration-200 ${darkMode
+                ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
+                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                }`}
+              aria-label="Toggle theme"
+            >
+              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+
+            {user ? (
+              <div className="relative" ref={dropdownRef}>
+                <div
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center cursor-pointer"
+                >
+                  {user.user_metadata?.avatar_url ? (
+                    <img
+                      src={user.user_metadata.avatar_url || "/placeholder.svg"}
+                      alt={user.user_metadata?.full_name || user.email || "User avatar"}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      {getInitials(user.user_metadata?.full_name, user.email)}
+                    </span>
+                  )}
+                </div>
+
+                {dropdownOpen && (
+                  <div className="absolute right-0 w-56 mt-2 rounded-md shadow-lg bg-white z-10">
+                    <div className="py-1">
+                      <div className="px-4 py-2 text-sm text-gray-700">
+                        <p className="font-medium leading-none">{user.user_metadata?.full_name || "User"}</p>
+                        <p className="text-xs mt-1 leading-none text-gray-500">{user.email}</p>
+                      </div>
+                      <div className="border-t border-gray-100 my-1"></div>
+                      <button
+                        onClick={handleLogout}
+                        className=" w-full flex items-center gap-3 cursor-pointer text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hover:text-red-900"
+                      >
+                        <LogOut className="w-4 h-4" />  Log out
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/auth">
+                <button className="inline-flex cursor-pointer items-center px-4 py-2 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700">
+                  Log in
+                </button>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+
+
+        <div className="max-w-4xl h-[85vh] flex flex-col justify-center items-center mx-auto px-4">
           <div className="text-center py-16">
             <ShoppingCart className={`mx-auto h-24 w-24 mb-4 ${darkMode ? "text-gray-600" : "text-gray-300"}`} />
             <h2 className={`text-2xl font-semibold mb-2 ${darkMode ? "text-gray-100" : "text-gray-900"}`}>
               Your cart is empty
             </h2>
-            <p className={`mb-8 ${darkMode ? "text-gray-400" : "text-gray-600"}`}>Add some items to get started!</p>
-            <Link to={"/products"} className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Continue Shopping
-            </Link>
+            <p className={` ${darkMode ? "text-gray-400" : "text-gray-600"}`}>Add some items to get started!</p>
+            
           </div>
         </div>
       </div>

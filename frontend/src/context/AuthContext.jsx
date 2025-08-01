@@ -15,7 +15,6 @@ export default function AuthProvider({ children }) {
   // Utility to fetch user info from backend
   const fetchAndSetUserInfo = async (userId, full_name, email) => {
     if (!userId) return;
-
     try {
       axios.post(AppRoutes.login, { id: userId, full_name: full_name, email: email }).then((response) => {
         setUserInfo(response?.data?.data);
@@ -28,6 +27,7 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     // Initial session load
+    setLoading(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       const user = session?.user || null;
@@ -44,6 +44,7 @@ export default function AuthProvider({ children }) {
         setUser(user);
       }
     );
+
 
     return () => {
       authListener?.subscription?.unsubscribe?.();
