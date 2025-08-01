@@ -155,7 +155,7 @@ export default function CartLayout() {
       <div className={`min-h-screen ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
         {/* Header */}
         <div
-        className={`shadow-sm h-[15vh] transition-colors ${darkMode ? "bg-gray-800 border-b border-gray-700" : "bg-white border-b border-gray-200"}`}
+        className={`shadow-sm transition-colors ${darkMode ? "bg-gray-800 border-b border-gray-700" : "bg-white border-b border-gray-200"}`}
       >
         <div className="container flex justify-between mx-auto px-4 py-6">
           <div className="flex items-center gap-3">
@@ -231,7 +231,7 @@ export default function CartLayout() {
       </div>
 
 
-        <div className="max-w-4xl h-[85vh] flex flex-col justify-center items-center mx-auto px-4">
+        <div className="max-w-4xl flex flex-col justify-center items-center mx-auto px-4">
           <div className="text-center py-16">
             <ShoppingCart className={`mx-auto h-24 w-24 mb-4 ${darkMode ? "text-gray-600" : "text-gray-300"}`} />
             <h2 className={`text-2xl font-semibold mb-2 ${darkMode ? "text-gray-100" : "text-gray-900"}`}>

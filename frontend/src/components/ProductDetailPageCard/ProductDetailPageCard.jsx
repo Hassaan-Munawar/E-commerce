@@ -91,14 +91,16 @@ export default function ProductDetailPageCard({ product }) {
 
     // Filter related products
     const relatedProducts = products
-        ? products
-            .filter(
-                (p) =>
-                    p._id !== product._id && // Exclude current product
-                    (p.category === product.category || p.brand === product.brand), // Same category or brand
-            )
-            .slice(0, 4) // Limit to 4 related products
-        : []
+  ? products
+      .filter(
+        (p) =>
+          p._id !== product._id &&
+          (p.category === product.category || p.brand === product.brand)
+      )
+      .sort(() => Math.random() - 0.5) // Shuffle the array
+      .slice(0, 4) // Pick any 4 products
+  : [];
+
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -363,7 +365,7 @@ export default function ProductDetailPageCard({ product }) {
                         {product.reviews.map((review, index) => (
                             <div key={index}>
                                 <div className="flex gap-4 items-start">
-                                    <div className="w-10 h-10 rounded-full border flex items-center justify-center bg-gray-200 text-gray-700 font-semibold text-lg">
+                                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 text-gray-700 font-semibold text-lg">
                                         {review.reviewerName.charAt(0)}
                                     </div>
                                     <div className="grid gap-2 flex-1">
@@ -409,7 +411,7 @@ export default function ProductDetailPageCard({ product }) {
                                         className="w-full h-full object-cover"
                                     />
                                     <div className={`p-4 ${darkMode ? "bg-gray-700" : "bg-white"}`}>
-                                        <h3 className={`font-semibold text-lg mb-1  ${darkMode ? "text-white" : "text-gray-900"}`}>
+                                        <h3 className={`font-semibold truncate text-md mb-1  ${darkMode ? "text-white" : "text-gray-900"}`}>
                                             {relatedProduct.title}
                                         </h3>
                                         <p className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
