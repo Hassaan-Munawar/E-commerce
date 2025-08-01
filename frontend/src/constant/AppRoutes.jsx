@@ -7,4 +7,5 @@ const BASE_URL = prod
 export const AppRoutes = {
     login: BASE_URL+"user",
     products: BASE_URL+"products",
+    editUser: BASE_URL+"user"
 }

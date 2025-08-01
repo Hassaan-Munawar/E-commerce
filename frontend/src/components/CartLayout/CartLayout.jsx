@@ -8,6 +8,8 @@ import { Link } from "react-router"
 import Loading from "../Loading/Loading"
 import supabase from "../../utils/supabase"
 import { toast } from "react-toastify"
+import { AppRoutes } from "../../constant/AppRoutes"
+import axios from "axios"
 
 
 export default function CartLayout() {
@@ -65,14 +67,42 @@ export default function CartLayout() {
     return <Loading />
   }
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity === 0) return removeItem(id)
-    setCartItems((items) => items.map((item) => (item._id === id ? { ...item, quantity: newQuantity } : item)))
-  }
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity === 0) return removeItem(productId);
 
-  const removeItem = (id) => {
-    setCartItems((items) => items.filter((item) => item._id !== id))
-  }
+    const updatedCart = userInfo?.cart.map(item =>
+      item.productId == productId ? { ...item, quantity: newQuantity } : item
+    );
+
+    axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart }).then(response => {
+      setCartItems(items =>
+        items.map(item =>
+          item._id == productId ? { ...item, quantity: newQuantity } : item
+        )
+      );
+      setUserInfo(response?.data?.data)
+    })
+      .catch((error) => {
+        toast.error(error.message);
+        console.error(error.message);
+      });
+  };
+
+
+  const removeItem = (productId) => {
+    const updatedCart = userInfo?.cart.filter(item => item.productId !== productId);
+
+    axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart }).then(response => {
+      setCartItems(items => items.filter(item => item._id !== productId));
+      setUserInfo(response?.data?.data)
+    })
+      .catch((error) => {
+        toast.error(error.message);
+        console.error(error.message);
+      });
+  };
+
+
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0)
   const shipping = subtotal > 100 ? 0 : 9.99
@@ -108,7 +138,7 @@ export default function CartLayout() {
     return parts.length === 1 ? parts[0][0].toUpperCase() : (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
   }
 
-  if (!loading && !loadingCart && products.length > 0 && userInfo?.cart?.length > 0 && cartItems.length === 0) {
+  if (!loading && !loadingCart && cartItems.length === 0) {
     return (
       <div className={`min-h-screen py-8 ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
         <div className="max-w-4xl mx-auto px-4">

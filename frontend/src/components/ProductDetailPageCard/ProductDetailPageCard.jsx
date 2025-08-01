@@ -11,15 +11,21 @@ import {
     QrCode,
     ShoppingCart,
     Tag,
+    Eye,
 } from "lucide-react"
 import { ThemeContext } from "../../context/ThemeContext"
 import { ProductsContext } from "../../context/ProductsContext"
 import { Link } from "react-router"
+import axios from "axios"
+import { UserInfoContext } from "../../context/UserInfoContext"
+import { AppRoutes } from "../../constant/AppRoutes"
+import { toast } from "react-toastify"
 
 export default function ProductDetailPageCard({ product }) {
     const { darkMode } = useContext(ThemeContext)
     const { products } = useContext(ProductsContext)
     const [selectedImage, setSelectedImage] = useState(0)
+    const { userInfo, setUserInfo } = useContext(UserInfoContext)
 
     const formatDate = (dateString) => {
         if (!dateString) return "N/A"
@@ -59,6 +65,22 @@ export default function ProductDetailPageCard({ product }) {
         )
     }
 
+    const addToCart = (productId) => {
+        const cart = userInfo?.cart
+        cart.push({ productId, quantity: 1 })
+        axios.put(AppRoutes.editUser, { id: userInfo?._id, cart })
+            .then((response) => {
+                toast.success("Product added to cart successfully!")
+                setUserInfo(response?.data?.data)
+            })
+            .catch((error) => {
+                toast.error(error.message)
+                console.error(error.message)
+            })
+    }
+
+    const checkProductInCart = userInfo?.cart?.some((item) => item.productId === product._id)
+
     const originalPrice = product.discountPercentage
         ? (product.price / (1 - product.discountPercentage / 100)).toFixed(2)
         : null
@@ -71,7 +93,7 @@ export default function ProductDetailPageCard({ product }) {
                     p._id !== product._id && // Exclude current product
                     (p.category === product.category || p.brand === product.brand), // Same category or brand
             )
-            .slice(0,4) // Limit to 4 related products
+            .slice(0, 4) // Limit to 4 related products
         : []
 
     return (
@@ -303,13 +325,23 @@ export default function ProductDetailPageCard({ product }) {
                         </div>
 
                         <div className={`pt-6 border-t ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
-                            <button
-                                className={`w-full cursor-pointer py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
-                                    }`}
-                            >
-                                <ShoppingCart className="w-5 h-5 mr-2" />
-                                Add to Cart
-                            </button>
+                            {
+                                checkProductInCart ? <Link to={"/cart"}
+                                    className={`w-full cursor-pointer py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
+                                        }`}
+                                >
+                                    <Eye className="w-5 h-5 mr-2" />
+                                    View in Cart
+                                </Link> : <button
+                                    onClick={() => addToCart(product._id)}
+                                    className={`w-full cursor-pointer py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
+                                        }`}
+                                >
+                                    <ShoppingCart className="w-5 h-5 mr-2" />
+                                    Add to Cart
+                                </button>
+                            }
+
                         </div>
                     </div>
                 </div>
