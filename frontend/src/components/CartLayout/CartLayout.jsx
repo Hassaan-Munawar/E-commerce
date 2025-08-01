@@ -231,11 +231,11 @@ export default function CartLayout() {
               {cartItems.map((item, index) => (
                 <div key={item._id}>
                   <div className="p-4 sm:p-6">
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className={`flex flex-col sm:flex-row gap-4`}>
                       <img
                         src={item.images?.[0] || "/placeholder.svg?height=96&width=96"}
                         alt={item.title}
-                        className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg"
+                        className={`w-20 ${darkMode ? "bg-gray-700" : "bg-gray-100"}  h-20 sm:w-24 sm:h-24 object-cover rounded-lg`}
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col sm:flex-row sm:justify-between">

@@ -7,6 +7,7 @@ const userSchema = new Schema({
     "cart": {
         "type": [
             {
+                "_id": false,
                 "productId": { "type": "string", "required": true },
                 "quantity": { "type": "number", "default": 1 }
             }
