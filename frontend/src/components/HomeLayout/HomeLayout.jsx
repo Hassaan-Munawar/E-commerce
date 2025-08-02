@@ -16,6 +16,7 @@ export default function HomeLayout() {
 
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev)
+        setDropdownOpen(false)
     }
 
     // Close dropdown when clicking outside

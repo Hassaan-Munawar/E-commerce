@@ -15,6 +15,7 @@ export default function ProductsPageHeader() {
 
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev)
+        setDropdownOpen(false)
     }
 
     const [dropdownOpen, setDropdownOpen] = useState(false)

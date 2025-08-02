@@ -9,11 +9,12 @@ import { UserInfoContext } from "../../context/UserInfoContext";
 
 function ProductDetailPageHeader() {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
-  const { userInfo, setUserInfo } = useContext(UserInfoContext);
+  const { setUserInfo } = useContext(UserInfoContext);
   const { user } = useContext(AuthContext)
 
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev)
+    setDropdownOpen(false)
   }
 
   const [dropdownOpen, setDropdownOpen] = useState(false)

@@ -129,7 +129,10 @@ export default function CartLayout() {
     return sum
   }, 0)
 
-  const toggleDarkMode = () => setDarkMode((prev) => !prev)
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev)
+    setDropdownOpen(false)
+  }
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut()
