@@ -74,17 +74,6 @@ export default function ProductsPageHeader() {
                             : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                             }`}
                             to="/cart"><ShoppingCart className="w-5 h-5" /></Link>
-
-                        <button
-                            onClick={toggleDarkMode}
-                            className={`p-2 rounded-lg cursor-pointer transition-colors ${darkMode
-                                ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
-                                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-                                }`}
-                            aria-label="Toggle theme"
-                        >
-                            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                        </button>
                         {user ? (
                             <div className="relative" ref={dropdownRef}>
                                 <div
@@ -111,6 +100,23 @@ export default function ProductsPageHeader() {
                                                 <p className="font-medium leading-none">{user.user_metadata?.full_name || "User"}</p>
                                                 <p className="text-xs mt-1 leading-none text-gray-500">{user.email}</p>
                                             </div>
+                                            <div className="border-t border-gray-100 my-1"></div>
+                                            <button
+                                                onClick={toggleDarkMode}
+                                                className=" w-full flex text-gray-700 items-center gap-3 cursor-pointer text-left px-4 py-2 text-sm hover:bg-gray-100"
+                                            >
+                                                {darkMode ? (
+                                                    <span className="flex items-center gap-2">
+                                                        <Sun className="w-5 h-5" />
+                                                        Light Mode
+                                                    </span>
+                                                ) : (
+                                                    <span className="flex items-center gap-2">
+                                                        <Moon className="w-5 h-5" />
+                                                        Dark Mode
+                                                    </span>
+                                                )}
+                                            </button>
                                             <div className="border-t border-gray-100 my-1"></div>
                                             <button
                                                 onClick={handleLogout}

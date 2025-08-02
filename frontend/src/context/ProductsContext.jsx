@@ -17,7 +17,7 @@ export default function ProductsProvider({ children }) {
                     throw new Error("Failed to fetch products")
                 }
                 const data = await response.json()
-                setProducts(data.products)
+                setProducts(data.products.sort(() => Math.random() - 0.5) )
             } catch (error) {
                 setError(error.message)
                 console.error("Error fetching data:", error)
@@ -28,7 +28,6 @@ export default function ProductsProvider({ children }) {
 
         fetchProducts()
     }, []);
-
 
 
     return (

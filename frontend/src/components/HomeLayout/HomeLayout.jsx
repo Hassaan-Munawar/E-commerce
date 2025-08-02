@@ -12,7 +12,7 @@ export default function HomeLayout() {
     const { user } = useContext(AuthContext)
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const dropdownRef = useRef(null)
-    const { userInfo, setUserInfo } = useContext(UserInfoContext)
+    const { setUserInfo } = useContext(UserInfoContext)
 
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev)
@@ -40,7 +40,7 @@ export default function HomeLayout() {
         }
     }
 
-    const bgColor = darkMode ? "bg-gray-900" : "bg-gradient-to-br from-blue-50 to-indigo-100"
+    const bgColor = darkMode ? "bg-gradient-to-br from-blue-900 to-indigo-950" : "bg-gradient-to-br from-blue-50 to-indigo-100"
     const textColor = darkMode ? "text-white" : "text-gray-900"
     const descColor = darkMode ? "text-gray-300" : "text-gray-600"
 
@@ -56,17 +56,6 @@ export default function HomeLayout() {
     return (
         <div className={`min-h-screen transition-colors duration-300 ${bgColor} ${textColor}`}>
             <div className="flex justify-end p-4">
-                <div className="flex items-center gap-4">
-                    <button
-                        onClick={toggleDarkMode}
-                        className={`p-3 rounded-lg cursor-pointer transition-colors ${darkMode
-                            ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
-                            : "bg-gray-200 hover:bg-gray-300 text-gray-700"
-                            }`}
-                        aria-label="Toggle theme"
-                    >
-                        {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                    </button>
                     {user ? (
                         <div className="relative" ref={dropdownRef}>
                             <div
@@ -95,6 +84,23 @@ export default function HomeLayout() {
                                         </div>
                                         <div className="border-t border-gray-100 my-1"></div>
                                         <button
+                                            onClick={toggleDarkMode}
+                                            className=" w-full flex text-gray-700 items-center gap-3 cursor-pointer text-left px-4 py-2 text-sm hover:bg-gray-100"
+                                        >
+                                            {darkMode ? (
+                                                <span className="flex items-center gap-2">
+                                                    <Sun className="w-5 h-5" />
+                                                    Light Mode
+                                                </span>
+                                            ) : (
+                                                <span className="flex items-center gap-2">
+                                                    <Moon className="w-5 h-5" />
+                                                    Dark Mode
+                                                </span>
+                                            )}
+                                        </button>
+                                        <div className="border-t border-gray-100 my-1"></div>
+                                        <button
                                             onClick={handleLogout}
                                             className=" w-full flex items-center gap-3 cursor-pointer text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100 hover:text-red-900"
                                         >
@@ -111,7 +117,6 @@ export default function HomeLayout() {
                             </button>
                         </Link>
                     )}
-                </div>
             </div>
             <div className="container mx-auto px-4 py-20">
                 <div className="text-center">

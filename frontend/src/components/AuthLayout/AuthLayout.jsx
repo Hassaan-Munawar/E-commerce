@@ -1,16 +1,14 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { ArrowLeft, Loader2, Moon, Sun } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import googleIcon from "../../assets/google-icon.png";
-import { ThemeContext } from "../../context/ThemeContext";
 import supabase from "../../utils/supabase";
 import axios from "axios"
 import { AppRoutes } from "../../constant/AppRoutes";
 import { UserInfoContext } from "../../context/UserInfoContext";
 
 export default function AuthLayout() {
-  const { darkMode, setDarkMode } = useContext(ThemeContext);
   const [activeTab, setActiveTab] = useState("login");
   const { setUserInfo } = useContext(UserInfoContext)
 
@@ -22,10 +20,6 @@ export default function AuthLayout() {
   const [loadingForm, setLoadingForm] = useState(false);
 
   const navigate = useNavigate();
-
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -102,35 +96,17 @@ export default function AuthLayout() {
       <div className="absolute top-5 z-10 left-5 flex items-center gap-3">
         <Link
           to="/"
-          className={`inline-flex items-center transition-colors ${darkMode ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
+          className="inline-flex items-center transition-colors text-gray-600 hover:text-gray-900"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Home
         </Link>
-        <div className={`h-6 w-px ${darkMode ? "bg-gray-600" : "bg-gray-300"}`} />
+        <div className="h-6 w-px bg-gray-300" />
       </div>
 
-      <button
-        onClick={toggleDarkMode}
-        className={`p-2 absolute top-5 right-5 z-10 rounded-lg cursor-pointer transition-colors ${darkMode
-          ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
-          : "bg-gray-300 hover:bg-gray-200 text-gray-700"
-          }`}
-        aria-label="Toggle theme"
-      >
-        {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-      </button>
-      <div
-        className={`relative min-h-screen ${darkMode ? "bg-gray-900" : "bg-gray-100"
-          } flex items-center justify-center p-4 transition-colors duration-200 `}
-      >
-        <div
-          className={`w-full max-w-md rounded-lg border shadow-lg p-6 md:p-8 ${darkMode
-            ? "bg-gray-800 border-gray-700 text-gray-50"
-            : "bg-white border-gray-200 text-gray-900"
-            }`}
-        >
-          <div className={`flex border-b ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
+      <div className="relative min-h-screen bg-gray-100 flex items-center justify-center p-4 transition-colors duration-200">
+        <div className="w-full max-w-md rounded-lg border shadow-lg p-6 md:p-8 bg-white border-gray-200 text-gray-900">
+          <div className="flex border-b border-gray-200">
             <button
               onClick={() => {
                 setActiveTab("login");
@@ -140,11 +116,7 @@ export default function AuthLayout() {
                 setErrorMessage("");
               }}
               className={`flex-1 py-2 cursor-pointer text-center font-medium text-sm transition-colors duration-200 ${activeTab === "login"
-                ? darkMode
-                  ? "border-b-2 border-blue-400 text-blue-400"
-                  : "border-b-2 border-blue-600 text-blue-600"
-                : darkMode
-                  ? "text-gray-400 hover:text-gray-200"
+                  ? "border-b-2 border-blue-600 text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
                 }`}
             >
@@ -159,11 +131,7 @@ export default function AuthLayout() {
                 setErrorMessage("");
               }}
               className={`flex-1 py-2 cursor-pointer text-center font-medium text-sm transition-colors duration-200 ${activeTab === "signup"
-                ? darkMode
-                  ? "border-b-2 border-blue-400 text-blue-400"
-                  : "border-b-2 border-blue-600 text-blue-600"
-                : darkMode
-                  ? "text-gray-400 hover:text-gray-200"
+                  ? "border-b-2 border-blue-600 text-blue-600"
                   : "text-gray-500 hover:text-gray-700"
                 }`}
             >
@@ -174,8 +142,11 @@ export default function AuthLayout() {
           <form onSubmit={activeTab === "login" ? handleLogin : handleSignup}>
             <div className="mt-6 space-y-4">
               <div className="space-y-2 text-center">
-                <h1 className="text-2xl font-bold">{activeTab === "login" ? "Login" : "Sign Up"}</h1>
+                <h1 className="text-2xl font-bold">
+                  {activeTab === "login" ? "Login" : "Sign Up"}
+                </h1>
               </div>
+
               <div className="space-y-4">
                 {activeTab === "signup" && (
                   <div className="space-y-2">
@@ -190,10 +161,7 @@ export default function AuthLayout() {
                         setErrorMessage("");
                       }}
                       required
-                      className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-400 ${darkMode
-                        ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
-                        : "border-gray-300 bg-white text-gray-900"
-                        }`}
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400"
                     />
                   </div>
                 )}
@@ -211,10 +179,7 @@ export default function AuthLayout() {
                       setErrorMessage("");
                     }}
                     required
-                    className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-400 ${darkMode
-                      ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
-                      : "border-gray-300 bg-white text-gray-900"
-                      }`}
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400"
                   />
                 </div>
 
@@ -231,21 +196,15 @@ export default function AuthLayout() {
                       setErrorMessage("");
                     }}
                     required
-                    className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-400 ${darkMode
-                      ? "border-gray-600 bg-gray-750 text-gray-50 placeholder:text-gray-500 "
-                      : "border-gray-300 bg-white text-gray-900"
-                      }`}
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400"
                   />
                 </div>
 
-                {errorMessage && <p className={`${darkMode ? "text-red-400" : "text-red-500"}`}>{errorMessage}</p>}
+                {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
                 <button
                   type="submit"
-                  className={`inline-flex items-center cursor-pointer justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium ${darkMode
-                    ? "bg-blue-500 hover:bg-blue-600 text-white"
-                    : "bg-blue-600 hover:bg-blue-700 text-white"
-                    }`}
+                  className="inline-flex items-center justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   {loadingForm ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -259,19 +218,14 @@ export default function AuthLayout() {
                 <button
                   type="button"
                   onClick={handleGoogleLogin}
-                  className={`inline-flex items-center cursor-pointer justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium border ${darkMode
-                    ? "border-gray-600 bg-transparent hover:bg-gray-700 text-gray-100"
-                    : "border-gray-300 bg-transparent hover:bg-gray-100 text-gray-700"
-                    }`}
-                > <img className="w-5 h-5 mr-2" src={googleIcon} alt="google-icon" />
+                  className="inline-flex items-center justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium border border-gray-300 bg-transparent hover:bg-gray-100 text-gray-700"
+                >
+                  <img className="w-5 h-5 mr-2" src={googleIcon} alt="google-icon" />
                   Continue with Google
                 </button>
               </div>
 
-              <div
-                className={`mt-4 text-center text-sm ${darkMode ? "text-gray-400" : "text-gray-500"
-                  }`}
-              >
+              <div className="mt-4 text-center text-sm text-gray-500">
                 {activeTab === "login" ? (
                   <>
                     Don’t have an account?{" "}
@@ -281,7 +235,7 @@ export default function AuthLayout() {
                         e.preventDefault();
                         setActiveTab("signup");
                       }}
-                      className={darkMode ? "text-blue-400 underline" : "text-blue-600 underline"}
+                      className="text-blue-600 underline"
                     >
                       Sign up
                     </a>
@@ -295,7 +249,7 @@ export default function AuthLayout() {
                         e.preventDefault();
                         setActiveTab("login");
                       }}
-                      className={darkMode ? "text-blue-400 underline" : "text-blue-600 underline"}
+                      className="text-blue-600 underline"
                     >
                       Login
                     </a>

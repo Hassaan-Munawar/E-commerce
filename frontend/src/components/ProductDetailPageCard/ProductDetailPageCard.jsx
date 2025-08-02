@@ -358,8 +358,8 @@ export default function ProductDetailPageCard({ product }) {
                     className={`mt-8 rounded-lg shadow-sm p-6 transition-colors duration-200 ${darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
                         }`}
                 >
-                    <p className={`text-xl mb-6 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                        Customer Reviews ({product.reviews.length})
+                    <p className={`text-xl font-bold mb-6 ${darkMode ? "text-white" : "text-gray-900"}`}>
+                        Customer Reviews
                     </p>
                     <div className="space-y-6">
                         {product.reviews.map((review, index) => (
@@ -397,7 +397,7 @@ export default function ProductDetailPageCard({ product }) {
                     className={`mt-8 rounded-lg shadow-sm p-6 transition-colors duration-200 ${darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
                         }`}
                 >
-                    <p className={`text-xl mb-8 ${darkMode ? "text-white" : "text-gray-900"}`}>Related Products</p>
+                    <p className={`text-xl font-bold mb-8 ${darkMode ? "text-white" : "text-gray-900"}`}>Related Products</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {relatedProducts.map((relatedProduct) => (
                             <Link onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
