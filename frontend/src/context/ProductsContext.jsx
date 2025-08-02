@@ -11,28 +11,27 @@ export default function ProductsProvider({ children }) {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                setLoading(true)
-                const response = await fetch("https://h-e-commerce-backend.vercel.app/products")
+                setLoading(true);
+                const response = await fetch("https://h-e-commerce-backend.vercel.app/products");
                 if (!response.ok) {
-                    throw new Error("Failed to fetch products")
+                    throw new Error("Failed to fetch products");
                 }
-                const data = await response.json()
-                setProducts(data.products.sort(() => Math.random() - 0.5) )
+                const data = await response.json();
+                setProducts(data.products.sort(() => Math.random() - 0.5));
             } catch (error) {
-                setError(error.message)
-                console.error("Error fetching data:", error)
+                setError(error.message);
+                console.error("Error fetching data:", error);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
+        };
 
-        fetchProducts()
+        fetchProducts();
     }, []);
-
 
     return (
         <ProductsContext.Provider value={{ products, loading, setLoading, error }}>
             {children}
         </ProductsContext.Provider>
     );
-};
+}

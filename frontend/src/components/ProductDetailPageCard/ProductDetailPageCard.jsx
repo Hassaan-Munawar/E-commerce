@@ -20,11 +20,13 @@ import axios from "axios"
 import { UserInfoContext } from "../../context/UserInfoContext"
 import { AppRoutes } from "../../constant/AppRoutes"
 import { toast } from "react-toastify"
+import { AuthContext } from "../../context/AuthContext"
 
 export default function ProductDetailPageCard({ product }) {
     const { darkMode } = useContext(ThemeContext)
     const { products } = useContext(ProductsContext)
     const [selectedImage, setSelectedImage] = useState(0)
+    const { user } = useContext(AuthContext)
     const { userInfo, setUserInfo } = useContext(UserInfoContext)
 
     const formatDate = (dateString) => {
@@ -339,7 +341,14 @@ export default function ProductDetailPageCard({ product }) {
                                     <Eye className="w-5 h-5 mr-2" />
                                     View in Cart
                                 </Link> : <button
-                                    onClick={() => addToCart(product._id)}
+                                    onClick={() =>{
+                                        if(user){
+                                            addToCart(product._id)
+                                        }
+                                        else{
+                                            toast.error("Please log in to add products")
+                                        }
+                                    }}
                                     className={`w-full cursor-pointer py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
                                         }`}
                                 >

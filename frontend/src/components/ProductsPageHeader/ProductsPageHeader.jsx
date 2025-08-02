@@ -11,7 +11,7 @@ import { UserInfoContext } from "../../context/UserInfoContext";
 export default function ProductsPageHeader() {
     const { darkMode, setDarkMode } = useContext(ThemeContext);
     const { user } = useContext(AuthContext)
-    const { userInfo, setUserInfo } = useContext(UserInfoContext);
+    const { setUserInfo } = useContext(UserInfoContext);
 
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev)
@@ -70,12 +70,13 @@ export default function ProductsPageHeader() {
                         <div className={`h-6 w-px ${darkMode ? "bg-gray-600" : "bg-gray-300"}`} />
                     </div>
                     <div className="flex items-center gap-4">
+                        {user ? (
+                            <>
                         <Link className={`p-2 rounded-lg cursor-pointer transition-colors ${darkMode
                             ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
                             : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                             }`}
                             to="/cart"><ShoppingCart className="w-5 h-5" /></Link>
-                        {user ? (
                             <div className="relative" ref={dropdownRef}>
                                 <div
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -129,6 +130,7 @@ export default function ProductsPageHeader() {
                                     </div>
                                 )}
                             </div>
+                            </>
                         ) : (
                             <Link to="/auth">
                                 <button className="inline-flex cursor-pointer items-center px-4 py-2 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700">

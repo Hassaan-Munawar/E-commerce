@@ -48,9 +48,9 @@ function App() {
         <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
 
         {/* Protected Routes */}
-        <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>} />
+        <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-        <Route path="/products/:id" element={<PrivateRoute><ProductDetail /></PrivateRoute>} />
+        <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

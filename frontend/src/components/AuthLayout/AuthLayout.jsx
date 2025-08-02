@@ -204,7 +204,7 @@ export default function AuthLayout() {
 
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white"
+                  className="inline-flex items-center cursor-pointer justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   {loadingForm ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -218,7 +218,7 @@ export default function AuthLayout() {
                 <button
                   type="button"
                   onClick={handleGoogleLogin}
-                  className="inline-flex items-center justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium border border-gray-300 bg-transparent hover:bg-gray-100 text-gray-700"
+                  className="inline-flex items-center cursor-pointer justify-center h-10 px-4 py-2 w-full rounded-md text-sm font-medium border border-gray-300 bg-transparent hover:bg-gray-100 text-gray-700"
                 >
                   <img className="w-5 h-5 mr-2" src={googleIcon} alt="google-icon" />
                   Continue with Google

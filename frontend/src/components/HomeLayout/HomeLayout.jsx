@@ -132,24 +132,14 @@ export default function HomeLayout() {
                         Discover amazing products from our curated collection. Browse through hundreds of items and find exactly
                         what you're looking for.
                     </p>
-                    {/* Call to Action Button */}
-                    {user ? (
+                    {/* Call to Action Button */}   
                         <Link
                             to="/products"
                             className="inline-flex items-center px-8 py-4 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700"
                         >
                             Browse Products
                             <ArrowRight className="w-5 h-5 ml-2" />
-                        </Link>
-                    ) : (
-                        <button
-                            onClick={() => toast.error("Please log in to browse products.")}
-                            className="inline-flex cursor-pointer items-center px-8 py-4 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700"
-                        >
-                            Browse Products
-                            <ArrowRight className="w-5 h-5 ml-2" />
-                        </button>
-                    )}
+                        </Link>    
                 </div>
             </div>
         </div>
