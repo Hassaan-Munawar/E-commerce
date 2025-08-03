@@ -43,7 +43,7 @@ export default function ProductCard({ product }) {
                 {/* Product Image - Fixed height */}
                 <div className={`relative aspect-square overflow-hidden ${darkMode ? "bg-gray-700" : "bg-gray-100"}  flex-shrink-0`}>
                     <img
-                        src={getValidImageUrl(product.thumbnail) || "/placeholder.svg?height=300&width=300"}
+                        src={getValidImageUrl(product.images[0]) || "/placeholder.svg?height=300&width=300"}
                         alt={product.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                         onError={(e) => {
@@ -74,7 +74,7 @@ export default function ProductCard({ product }) {
                 <div className="p-4 flex flex-col flex-grow">
                     {/* Title - Fixed space */}
                     <h3
-                        className={`font-semibold mb-2 line-clamp-2 min-h-[3rem] group-hover:text-blue-500 transition-colors ${darkMode ? "text-white" : "text-gray-900"
+                        className={`font-semibold truncate mb-2 line-clamp-2 min-h-[3rem] group-hover:text-blue-500 transition-colors ${darkMode ? "text-white" : "text-gray-900"
                             }`}
                     >
                         {product.title}
@@ -85,20 +85,7 @@ export default function ProductCard({ product }) {
                         {product.description}
                     </p>
 
-                    {/* Product Meta - Fixed space */}
-                    <div className={`space-y-2 text-xs mb-4 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                        <div className="flex items-center">
-                            <Calendar className="w-3 h-3 mr-1" />
-                            <span>Created: {formatDate(product.meta.createdAt)}</span>
-                        </div>
-                        {product.updatedAt !== product.creationAt && (
-                            <div className="flex items-center">
-                                <Calendar className="w-3 h-3 mr-1" />
-                                <span>Updated: {formatDate(product.meta.updatedAt)}</span>
-                            </div>
-                        )}
-                    </div>
-
+                
                     {/* Action Button - Fixed at bottom */}
                     <div className={`pt-3 border-t mt-auto ${darkMode ? "border-gray-700" : "border-gray-100"}`}>
                         <div className="flex items-center justify-between">
