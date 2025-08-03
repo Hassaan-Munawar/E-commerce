@@ -12,7 +12,6 @@ export default function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const { setUserInfo } = useContext(UserInfoContext);
 
-  // Utility to fetch user info from backend
   const fetchAndSetUserInfo = async (userId, full_name, email) => {
     if (!userId) return;
     try {
@@ -21,7 +20,7 @@ export default function AuthProvider({ children }) {
       })
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.message;
-      console.log(errorMsg);
+      console.error(errorMsg);
     }
   };
 
