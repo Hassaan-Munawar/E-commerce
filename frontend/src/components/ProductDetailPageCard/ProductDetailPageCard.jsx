@@ -71,7 +71,7 @@ export default function ProductDetailPageCard({ product }) {
         const cart = userInfo?.cart
         cart.push({ productId, quantity: 1 })
         axios.put(AppRoutes.editUser, { id: userInfo?._id, cart })
-            .then((response) => {
+            .then(() => {
                 toast.success("Product added to cart successfully!")
                 setUserInfo(prev => ({
                     ...prev,

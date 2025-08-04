@@ -19,6 +19,7 @@ export default function CartLayout() {
   const { userInfo, setUserInfo } = useContext(UserInfoContext)
   const [cartItems, setCartItems] = useState([])
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [showEmptyMessage, setShowEmptyMessage] = useState(false);
   const [loadingCart, setLoadingCart] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -31,7 +32,6 @@ export default function CartLayout() {
     document.addEventListener("mousedown", handleClickOutside)
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
-
 
   useEffect(() => {
     setLoadingCart(true)
@@ -61,10 +61,6 @@ export default function CartLayout() {
   }, [products, userInfo])
 
 
-  if (loadingCart || loading) {
-    return <Loading />
-  }
-
   const updateQuantity = (productId, newQuantity) => {
     setLoadingCart(true)
     if (newQuantity === 0) return removeItem(productId);
@@ -92,7 +88,6 @@ export default function CartLayout() {
     setLoadingCart(false);
   };
 
-
   const removeItem = (productId) => {
     setLoadingCart(true);
     const updatedCart = userInfo?.cart?.filter(item => item.productId !== productId);
@@ -111,9 +106,6 @@ export default function CartLayout() {
       });
     setLoadingCart(false);
   };
-
-
-
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0)
   const shipping = subtotal > 100 ? 0 : 9.99
@@ -152,8 +144,11 @@ export default function CartLayout() {
     return parts.length === 1 ? parts[0][0].toUpperCase() : (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
   }
 
-  if (!loading && !loadingCart && cartItems.length === 0) {
+  if (loadingCart || loading) {
+    return <Loading />
+  }
 
+  if (!loading && !loadingCart && cartItems.length === 0) {
     return (
       <div className={`min-h-screen ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
         {/* Header */}
@@ -238,8 +233,7 @@ export default function CartLayout() {
             </div>
           </div>
         </div>
-
-
+        {/* Main Content */}
         <div className="max-w-4xl flex flex-col justify-center items-center mx-auto px-4">
           <div className="text-center py-16">
             <ShoppingCart className={`mx-auto h-24 w-24 mb-4 ${darkMode ? "text-gray-600" : "text-gray-300"}`} />
@@ -247,7 +241,6 @@ export default function CartLayout() {
               Your cart is empty
             </h2>
             <p className={` ${darkMode ? "text-gray-400" : "text-gray-600"}`}>Add some items to get started!</p>
-
           </div>
         </div>
       </div>
@@ -274,8 +267,6 @@ export default function CartLayout() {
           </div>
 
           <div className="flex items-center gap-4">
-
-
             {user ? (
               <div className="relative" ref={dropdownRef}>
                 <div
