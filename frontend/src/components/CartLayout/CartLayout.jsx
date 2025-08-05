@@ -19,7 +19,6 @@ export default function CartLayout() {
   const { userInfo, setUserInfo } = useContext(UserInfoContext)
   const [cartItems, setCartItems] = useState([])
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [showEmptyMessage, setShowEmptyMessage] = useState(false);
   const [loadingCart, setLoadingCart] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -40,8 +39,7 @@ export default function CartLayout() {
       setLoadingCart(false)
       return
     }
-    const cartProductsWithQuantity = userInfo.cart
-      .map((cartItem) => {
+    const cartProductsWithQuantity = userInfo?.cart?.map((cartItem) => {
         const product = products.find((p) => p._id === cartItem.productId)
         if (product) {
           return {
@@ -153,7 +151,7 @@ export default function CartLayout() {
       <div className={`min-h-screen ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
         {/* Header */}
         <div
-          className={`shadow-sm transition-colors ${darkMode ? "bg-gray-800 border-b border-gray-700" : "bg-white border-b border-gray-200"}`}
+          className={`sticky top-0 z-50 shadow-sm transition-colors ${darkMode ? "bg-gray-800 border-b border-gray-700" : "bg-white border-b border-gray-200"}`}
         >
           <div className="container flex justify-between mx-auto px-4 py-6">
             <div className="flex items-center gap-3">
@@ -251,7 +249,7 @@ export default function CartLayout() {
     <div className={`min-h-screen ${darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-50 text-gray-900"}`}>
       {/* Header */}
       <div
-        className={`shadow-sm transition-colors ${darkMode ? "bg-gray-800 border-b border-gray-700" : "bg-white border-b border-gray-200"}`}
+        className={`sticky top-0 z-50 shadow-sm transition-colors ${darkMode ? "bg-gray-800 border-b border-gray-700" : "bg-white border-b border-gray-200"}`}
       >
         <div className="container flex justify-between mx-auto px-4 py-6">
           <div className="flex items-center gap-3">
@@ -369,7 +367,9 @@ export default function CartLayout() {
                               {item.title}
                             </h3>
                             <div className="flex flex-wrap gap-2 text-sm">
-                              <span className={darkMode ? "text-gray-400" : "text-gray-600"}>Brand: {item.brand}</span>
+                              {
+                                item.brand ? <span className={darkMode ? "text-gray-400" : "text-gray-600"}>Brand: {item.brand}</span> : null
+                              }
                               {item.availabilityStatus && (
                                 <span className="text-green-600 dark:text-green-400">{item.availabilityStatus}</span>
                               )}
@@ -436,7 +436,7 @@ export default function CartLayout() {
           {/* Order Summary */}
           <div className="lg:col-span-4 mt-8 lg:mt-0">
             <div
-              className={`rounded-lg shadow-sm border sticky top-8 ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
+              className={`rounded-lg shadow-sm border sticky top-30 ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
                 }`}
             >
               <div className="p-6">

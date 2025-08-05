@@ -53,7 +53,7 @@ function ProductDetailPageHeader() {
 
   return (
     <div
-      className={`shadow-sm transition-colors duration-200 ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white"}`}
+      className={`sticky top-0 z-50 shadow-sm transition-colors duration-200 ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white"}`}
     >
       <div className="container flex justify-between mx-auto px-4 py-6">
         <div className="flex items-center gap-3">
