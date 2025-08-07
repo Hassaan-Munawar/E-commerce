@@ -1,18 +1,10 @@
 import { Link } from "react-router"
 import { ThemeContext } from "../../context/ThemeContext"
 import { useContext } from "react"
-import { ShoppingCart, Tag, Calendar } from "lucide-react"
+import { ShoppingCart, Tag } from "lucide-react"
 
 export default function ProductCard({ product }) {
     const { darkMode } = useContext(ThemeContext)
-
-    const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-        })
-    }
 
     const getValidImageUrl = (image) => {
         if (!image) {

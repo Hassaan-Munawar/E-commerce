@@ -7,11 +7,11 @@ import Loading from "../components/Loading/Loading"
 import { RefreshCcw } from "lucide-react"
 
 function Products() {
-  const { products, error, loading } = useContext(ProductsContext)
+  const { products, error, loadingProducts } = useContext(ProductsContext)
   const { darkMode } = useContext(ThemeContext)
 
 
-  if (loading && products.length === 0) {
+  if (loadingProducts && products.length === 0) {
     return (
       <Loading />
     )

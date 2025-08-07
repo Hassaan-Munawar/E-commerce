@@ -9,7 +9,7 @@ export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
   const { setUserInfo } = useContext(UserInfoContext);
 
   const fetchAndSetUserInfo = async (userId, full_name, email) => {
@@ -26,13 +26,14 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     // Initial session load
-    setLoading(true);
+    setUserLoading(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       const user = session?.user || null;
       setUser(user);
       if (session?.user?.id) fetchAndSetUserInfo(session?.user?.id, session?.user?.user_metadata?.full_name, session?.user?.email);
-      setLoading(false);
+    }).finally(() => {
+      setUserLoading(false);
     });
 
     // Listen for auth state changes
@@ -51,7 +52,7 @@ export default function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ session, user, loading }}>
+    <AuthContext.Provider value={{ session, user, userLoading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -13,12 +13,12 @@ import Loading from './components/Loading/Loading';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 function App() {
-  const { user, loading } = useContext(AuthContext);
+  const { user, userLoading } = useContext(AuthContext);
 
   const PrivateRoute = ({ children }) => {
     const location = useLocation();
 
-    if (loading) return <Loading />
+    if (userLoading) return <Loading />
 
     if (!user) {
       return <Navigate to="/" state={{ from: location }} replace />;
