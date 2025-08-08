@@ -84,8 +84,9 @@ export default function CartLayout() {
       .catch((error) => {
         toast.error(error.message);
         console.error(error.message);
+      }).finally(() => {
+        setLoadingCart(false);
       });
-    setLoadingCart(false);
   };
 
   const removeItem = (productId) => {
@@ -103,8 +104,9 @@ export default function CartLayout() {
       .catch((error) => {
         toast.error(error.message);
         console.error(error.message);
+      }).finally(() => {
+        setLoadingCart(false);
       });
-    setLoadingCart(false);
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0)
