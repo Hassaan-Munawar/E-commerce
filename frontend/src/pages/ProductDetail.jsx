@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { Link, useParams } from "react-router"
+import { Link, useParams } from "react-router-dom"
 import { ArrowLeft } from "lucide-react"
 import { ThemeContext } from "../context/ThemeContext"
 import { ProductsContext } from "../context/ProductsContext"

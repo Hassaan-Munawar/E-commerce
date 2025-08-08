@@ -4,7 +4,7 @@ import { ThemeContext } from "../../context/ThemeContext"
 import { AuthContext } from "../../context/AuthContext"
 import supabase from "../../utils/supabase"
 import { toast } from "react-toastify"
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
 import { UserInfoContext } from "../../context/UserInfoContext";
 
 export default function HomeLayout() {

@@ -12,10 +12,12 @@ import {
     ShoppingCart,
     Tag,
     Eye,
+    Loader2,
+    RefreshCcw,
 } from "lucide-react"
 import { ThemeContext } from "../../context/ThemeContext"
 import { ProductsContext } from "../../context/ProductsContext"
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
 import axios from "axios"
 import { UserInfoContext } from "../../context/UserInfoContext"
 import { AppRoutes } from "../../constant/AppRoutes"
@@ -24,8 +26,9 @@ import { AuthContext } from "../../context/AuthContext"
 
 export default function ProductDetailPageCard({ product }) {
     const { darkMode } = useContext(ThemeContext)
-    const { products } = useContext(ProductsContext)
+    const { products, error } = useContext(ProductsContext)
     const [selectedImage, setSelectedImage] = useState(0)
+    const [loading, setLoading] = useState(false)
     const { user } = useContext(AuthContext)
     const { userInfo, setUserInfo } = useContext(UserInfoContext)
 
@@ -68,6 +71,7 @@ export default function ProductDetailPageCard({ product }) {
     }
 
     const addToCart = (productId) => {
+        setLoading(true)
         const cart = userInfo?.cart
         cart.push({ productId, quantity: 1 })
         axios.put(AppRoutes.editUser, { id: userInfo?._id, cart })
@@ -82,7 +86,9 @@ export default function ProductDetailPageCard({ product }) {
             .catch((error) => {
                 toast.error(error.message)
                 console.error(error.message)
-            })
+            }).finally(() => {
+                setLoading(false);
+            });
     }
 
     const checkProductInCart = userInfo?.cart?.some((item) => item.productId === product._id)
@@ -93,15 +99,48 @@ export default function ProductDetailPageCard({ product }) {
 
     // Filter related products
     const relatedProducts = products
-  ? products
-      .filter(
-        (p) =>
-          p._id !== product._id &&
-          (p.category === product.category || p.brand === product.brand)
-      )
-      .sort(() => Math.random() - 0.5) // Shuffle the array
-      .slice(0, 4) // Pick any 4 products
-  : [];
+        ? products
+            .filter(
+                (p) =>
+                    p._id !== product._id &&
+                    (p.category === product.category || p.brand === product.brand)
+            )
+            .sort(() => Math.random() - 0.5) // Shuffle the array
+            .slice(0, 4) // Pick any 4 products
+        : [];
+
+    if (error && products.length === 0) {
+        return (
+            <div className={`min-h-screen transition-colors duration-200 ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
+                <div className="container mx-auto px-4 py-8">
+                    <div className="flex items-center justify-center min-h-[400px]">
+                        <div className="text-center">
+                            <div
+                                className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${darkMode ? "bg-red-900/20" : "bg-red-100"}`}
+                            >
+                                <span className={`text-2xl ${darkMode ? "text-red-400" : "text-red-600"}`}>⚠</span>
+                            </div>
+                            <h2 className={`text-xl font-semibold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>
+                                Error Loading Products
+                            </h2>
+                            <p className={`mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>{error}</p>
+                            <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                                Please try refreshing the page or check back later.
+                            </p>
+                            <div className="mt-6">
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${darkMode ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-blue-100 text-blue-600 hover:bg-blue-200"}`}
+                                >
+                                    Refresh Page <RefreshCcw className="inline-block ml-1 w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
 
     return (
@@ -338,22 +377,30 @@ export default function ProductDetailPageCard({ product }) {
                                     className={`w-full cursor-pointer py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
                                         }`}
                                 >
-                                    <Eye className="w-5 h-5 mr-2" />
-                                    View in Cart
+                                    {
+                                        loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>
+                                            <Eye className="w-5 h-5 mr-2" />
+                                            View in Cart
+                                        </>
+                                    }
+
                                 </Link> : <button
-                                    onClick={() =>{
-                                        if(user){
+                                    onClick={() => {
+                                        if (user) {
                                             addToCart(product._id)
                                         }
-                                        else{
+                                        else {
                                             toast.error("Please log in to add products")
                                         }
                                     }}
                                     className={`w-full cursor-pointer py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
                                         }`}
                                 >
-                                    <ShoppingCart className="w-5 h-5 mr-2" />
-                                    Add to Cart
+                                    {
+                                        loading ? <Loader2 className="w-5 h-5 animate-spin" /> :
+                                            <><ShoppingCart className="w-5 h-5 mr-2" />
+                                                Add to Cart</>
+                                    }
                                 </button>
                             }
 

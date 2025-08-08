@@ -4,7 +4,7 @@ import { ThemeContext } from "../../context/ThemeContext"
 import { AuthContext } from "../../context/AuthContext"
 import { UserInfoContext } from "../../context/UserInfoContext"
 import { ProductsContext } from "../../context/ProductsContext"
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
 import Loading from "../Loading/Loading"
 import supabase from "../../utils/supabase"
 import { toast } from "react-toastify"
@@ -248,18 +248,6 @@ export default function CartLayout() {
             </div>
           </div>) : (
           <div className="mx-auto p-4 sm:p-6 lg:p-8">
-            <div className="mb-8">
-              <h1 className="text-2xl sm:text-3xl font-bold">
-                Shopping Cart ({totalItems} {totalItems === 1 ? "item" : "items"})
-              </h1>
-              {totalSavings > 0 && (
-                <p className="text-green-600 dark:text-green-400 mt-2">
-                  {"You're saving $"}
-                  {totalSavings.toFixed(2)} with current discounts!
-                </p>
-              )}
-            </div>
-
             <div className="lg:grid lg:grid-cols-12 lg:gap-8">
               {/* Cart Items */}
               <div className="lg:col-span-8">

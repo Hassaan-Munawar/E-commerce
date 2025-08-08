@@ -3,6 +3,7 @@ import supabase from '../utils/supabase';
 import axios from 'axios';
 import { AppRoutes } from '../constant/AppRoutes';
 import { UserInfoContext } from './UserInfoContext';
+import { toast } from 'react-toastify';
 
 export const AuthContext = createContext();
 
@@ -20,7 +21,8 @@ export default function AuthProvider({ children }) {
       })
     } catch (error) {
       const errorMsg = error.response?.data?.message || error.message;
-      console.error(errorMsg);
+      toast.error(errorMsg);
+      console.error(errorMsg)
     }
   };
 

@@ -1,6 +1,6 @@
 import { ArrowLeft, Sun, Moon, ShoppingCart, LogOut } from "lucide-react"
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";

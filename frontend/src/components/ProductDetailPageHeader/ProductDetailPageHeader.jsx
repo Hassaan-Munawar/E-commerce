@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { ArrowLeft, Sun, Moon, ShoppingCart, LogOut } from "lucide-react"
 import { AuthContext } from "../../context/AuthContext";
 import supabase from "../../utils/supabase";
