@@ -69,7 +69,7 @@ function ProductDetail() {
   return (
     <div className={`min-h-screen transition-colors duration-200 ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
       {/* Header */}
-      <ProductDetailPageHeader />
+      <ProductDetailPageHeader id={id} />
      
       {/* Product Detail */}
       <ProductDetailPageCard product={product} />

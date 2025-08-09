@@ -11,9 +11,11 @@ import PageNotFound from './pages/PageNotFound';
 import Cart from './pages/Cart';
 import Loading from './components/Loading/Loading';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import { LocationContext } from './context/LocationContext';
 
 function App() {
   const { user, userLoading } = useContext(AuthContext);
+  const {lastLocation} = useContext(LocationContext)
 
   const PrivateRoute = ({ children }) => {
     const location = useLocation();
@@ -32,7 +34,7 @@ function App() {
     const location = useLocation();
 
     if (user) {
-      return <Navigate to="/" state={{ from: location }} replace />;
+      return <Navigate to={lastLocation ? lastLocation : "/"} state={{ from: location }} replace />;
     }
 
     return children;

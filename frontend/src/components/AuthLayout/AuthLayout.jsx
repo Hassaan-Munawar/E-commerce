@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import googleIcon from "../../assets/google-icon.png";
@@ -7,6 +7,7 @@ import supabase from "../../utils/supabase";
 import axios from "axios"
 import { AppRoutes } from "../../constant/AppRoutes";
 import { UserInfoContext } from "../../context/UserInfoContext";
+import { LocationContext } from "../../context/LocationContext";
 
 export default function AuthLayout() {
   const [activeTab, setActiveTab] = useState("login");
@@ -16,8 +17,7 @@ export default function AuthLayout() {
   const [fullName, setFullName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loadingForm, setLoadingForm] = useState(false);
-
-  const navigate = useNavigate();
+  const { lastLocation } = useContext(LocationContext)
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -34,7 +34,6 @@ export default function AuthLayout() {
         setErrorMessage(error.message == 'Request failed with status code 403' ? error.response.data.message : error.message)
       })
       toast.success("Login successful!");
-      navigate("/");
     }
     setLoadingForm(false);
   };
@@ -65,9 +64,8 @@ export default function AuthLayout() {
         setUserInfo(data?.data?.data)
       }).catch((error) => {
         setErrorMessage(error.message == 'Request failed with status code 403' ? error.response.data.message : error.message)
-      })
+      });
       toast.success("Signup successful!");
-      navigate("/");
     }
     setLoadingForm(false);
   };
@@ -79,7 +77,10 @@ export default function AuthLayout() {
     setPassword("");
     setEmail("");
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google"
+      provider: "google",
+      options: {
+        redirectTo: lastLocation ? `https://h-e-commerce.vercel.app${lastLocation}` : `https://h-e-commerce.vercel.app/`
+      }
     });
     if (error) {
       setErrorMessage(error.message);

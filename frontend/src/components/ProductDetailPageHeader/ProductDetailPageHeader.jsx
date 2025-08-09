@@ -6,11 +6,13 @@ import { AuthContext } from "../../context/AuthContext";
 import supabase from "../../utils/supabase";
 import { toast } from "react-toastify";
 import { UserInfoContext } from "../../context/UserInfoContext";
+import { LocationContext } from "../../context/LocationContext";
 
-function ProductDetailPageHeader() {
+function ProductDetailPageHeader({ id }) {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
   const { userInfo, setUserInfo } = useContext(UserInfoContext);
   const { user } = useContext(AuthContext);
+  const {setLastLocation} = useContext(LocationContext)
 
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev)
@@ -141,7 +143,9 @@ function ProductDetailPageHeader() {
               </div>
             </>
           ) : (
-            <Link to={"/auth"}>
+            <Link to={"/auth"}
+              onClick={() => setLastLocation(`/products/${id}`)}
+            >
               <button
                 className="inline-flex cursor-pointer items-center px-4 py-2 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700">
                 Log in
