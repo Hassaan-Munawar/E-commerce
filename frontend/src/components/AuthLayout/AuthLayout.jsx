@@ -10,9 +10,7 @@ import { UserInfoContext } from "../../context/UserInfoContext";
 
 export default function AuthLayout() {
   const [activeTab, setActiveTab] = useState("login");
-  const { setUserInfo } = useContext(UserInfoContext)
-
-
+  const { setUserInfo } = useContext(UserInfoContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -88,7 +86,6 @@ export default function AuthLayout() {
     }
     setLoadingForm(false);
     toast.success("Login successful!");
-
   };
 
   return (
@@ -116,8 +113,8 @@ export default function AuthLayout() {
                 setErrorMessage("");
               }}
               className={`flex-1 py-2 cursor-pointer text-center font-medium text-sm transition-colors duration-200 ${activeTab === "login"
-                  ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
+                ? "border-b-2 border-blue-600 text-blue-600"
+                : "text-gray-500 hover:text-gray-700"
                 }`}
             >
               Login
@@ -131,8 +128,8 @@ export default function AuthLayout() {
                 setErrorMessage("");
               }}
               className={`flex-1 py-2 cursor-pointer text-center font-medium text-sm transition-colors duration-200 ${activeTab === "signup"
-                  ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
+                ? "border-b-2 border-blue-600 text-blue-600"
+                : "text-gray-500 hover:text-gray-700"
                 }`}
             >
               Sign Up

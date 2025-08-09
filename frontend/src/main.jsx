@@ -12,12 +12,12 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserInfoProvider>
       <AuthProvider>
-        <ProductsProvider>
-          <ThemeProvider>
-            <ToastContainer position="bottom-right" />
-            <App />
-          </ThemeProvider>
-        </ProductsProvider>
+          <ProductsProvider>
+            <ThemeProvider>
+              <ToastContainer position="bottom-right" />
+              <App />
+            </ThemeProvider>
+          </ProductsProvider>
       </AuthProvider>
     </UserInfoProvider>
   </StrictMode>

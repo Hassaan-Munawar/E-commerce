@@ -10,7 +10,7 @@ import { UserInfoContext } from "../../context/UserInfoContext";
 function ProductDetailPageHeader() {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
   const { userInfo, setUserInfo } = useContext(UserInfoContext);
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev)
@@ -141,8 +141,9 @@ function ProductDetailPageHeader() {
               </div>
             </>
           ) : (
-            <Link to="/auth">
-              <button className="inline-flex cursor-pointer items-center px-4 py-2 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700">
+            <Link to={"/auth"}>
+              <button
+                className="inline-flex cursor-pointer items-center px-4 py-2 font-semibold rounded-lg transition-all shadow-lg hover:shadow-xl bg-blue-600 text-white hover:bg-blue-700">
                 Log in
               </button>
             </Link>
