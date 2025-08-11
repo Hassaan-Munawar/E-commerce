@@ -62,7 +62,6 @@ export default function CartLayout() {
 
 
   const updateQuantity = (productId, newQuantity) => {
-    setLoadingCart(true)
     if (newQuantity === 0) return removeItem(productId);
 
     const updatedCart = userInfo?.cart?.map(item =>
@@ -85,11 +84,9 @@ export default function CartLayout() {
         toast.error(error.message);
         console.error(error.message);
       })
-    setLoadingCart(false);
   };
 
   const removeItem = (productId) => {
-    setLoadingCart(true);
     const updatedCart = userInfo?.cart?.filter(item => item.productId !== productId);
 
     axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart })
@@ -104,7 +101,6 @@ export default function CartLayout() {
         toast.error(error.message);
         console.error(error.message);
       })
-    setLoadingCart(false);
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0)
