@@ -19,7 +19,7 @@ export default function CartLayout() {
   const { userInfo, setUserInfo } = useContext(UserInfoContext)
   const [cartItems, setCartItems] = useState([])
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  // const [loadingCart, setLoadingCart] = useState(false)
+  const [loadingCart, setLoadingCart] = useState(false)
   const dropdownRef = useRef(null)
 
   useEffect(() => {
@@ -33,10 +33,10 @@ export default function CartLayout() {
   }, [])
 
   useEffect(() => {
-    // setLoadingCart(true)
+    setLoadingCart(true)
     if (!products || !userInfo?.cart?.length) {
       setCartItems([])
-      // setLoadingCart(false)
+      setLoadingCart(false)
       return
     }
 
@@ -56,13 +56,13 @@ export default function CartLayout() {
       .filter(Boolean)
 
     setCartItems(cartProductsWithQuantity)
-    // setLoadingCart(false)
+    setLoadingCart(false)
 
   }, [products, userInfo])
 
 
   const updateQuantity = (productId, newQuantity) => {
-    // setLoadingCart(true)
+    setLoadingCart(true)
     if (newQuantity === 0) return removeItem(productId);
 
     const updatedCart = userInfo?.cart?.map(item =>
@@ -85,11 +85,11 @@ export default function CartLayout() {
         toast.error(error.message);
         console.error(error.message);
       })
-    // setLoadingCart(false)
+    setLoadingCart(false)
   };
 
   const removeItem = (productId) => {
-    // setLoadingCart(true)
+    setLoadingCart(true)
     const updatedCart = userInfo?.cart?.filter(item => item.productId !== productId);
 
     axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart })
@@ -104,7 +104,7 @@ export default function CartLayout() {
         toast.error(error.message);
         console.error(error.message);
       })
-    // setLoadingCart(false)
+    setLoadingCart(false)
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0)
@@ -182,7 +182,7 @@ export default function CartLayout() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className={`text-lg ${darkMode ? "text-gray-200" : "text-gray-800 "} font-semibold`}>
+                    <span className="text-lg text-gray-700 font-semibold">
                       {getInitials(user.user_metadata?.full_name, user.email)}
                     </span>
                   )}
@@ -237,8 +237,7 @@ export default function CartLayout() {
       {/* Main Content */}
 
       {
-        // !loadingProducts && !loadingCart && userInfo?.cart?.length === 0 ? (
-        !loadingProducts && userInfo?.cart?.length === 0 ? (
+        !loadingProducts && !loadingCart && userInfo?.cart?.length === 0 ? (
           <div className="max-w-4xl flex flex-col justify-center items-center mx-auto px-4">
             <div className="text-center py-16">
               <ShoppingCart className={`mx-auto h-24 w-24 mb-4 ${darkMode ? "text-gray-600" : "text-gray-300"}`} />
