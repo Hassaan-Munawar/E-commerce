@@ -19,7 +19,7 @@ export default function CartLayout() {
   const { userInfo, setUserInfo } = useContext(UserInfoContext)
   const [cartItems, setCartItems] = useState([])
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [loadingCart, setLoadingCart] = useState(false)
+  // const [loadingCart, setLoadingCart] = useState(false)
   const dropdownRef = useRef(null)
 
   useEffect(() => {
@@ -33,10 +33,10 @@ export default function CartLayout() {
   }, [])
 
   useEffect(() => {
-    setLoadingCart(true)
+    // setLoadingCart(true)
     if (!products || !userInfo?.cart?.length) {
       setCartItems([])
-      setLoadingCart(false)
+      // setLoadingCart(false)
       return
     }
 
@@ -56,12 +56,13 @@ export default function CartLayout() {
       .filter(Boolean)
 
     setCartItems(cartProductsWithQuantity)
-    setLoadingCart(false)
+    // setLoadingCart(false)
 
   }, [products, userInfo])
 
 
   const updateQuantity = (productId, newQuantity) => {
+    // setLoadingCart(true)
     if (newQuantity === 0) return removeItem(productId);
 
     const updatedCart = userInfo?.cart?.map(item =>
@@ -84,9 +85,11 @@ export default function CartLayout() {
         toast.error(error.message);
         console.error(error.message);
       })
+    // setLoadingCart(false)
   };
 
   const removeItem = (productId) => {
+    // setLoadingCart(true)
     const updatedCart = userInfo?.cart?.filter(item => item.productId !== productId);
 
     axios.put(AppRoutes.editUser, { id: userInfo?._id, cart: updatedCart })
@@ -101,6 +104,7 @@ export default function CartLayout() {
         toast.error(error.message);
         console.error(error.message);
       })
+    // setLoadingCart(false)
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0)
@@ -178,7 +182,7 @@ export default function CartLayout() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                    <span className={`text-lg ${darkMode ? "text-gray-200" : "text-gray-800 "} font-semibold`}>
                       {getInitials(user.user_metadata?.full_name, user.email)}
                     </span>
                   )}
@@ -233,7 +237,8 @@ export default function CartLayout() {
       {/* Main Content */}
 
       {
-        !loadingProducts && !loadingCart && userInfo?.cart?.length === 0 ? (
+        // !loadingProducts && !loadingCart && userInfo?.cart?.length === 0 ? (
+        !loadingProducts && userInfo?.cart?.length === 0 ? (
           <div className="max-w-4xl flex flex-col justify-center items-center mx-auto px-4">
             <div className="text-center py-16">
               <ShoppingCart className={`mx-auto h-24 w-24 mb-4 ${darkMode ? "text-gray-600" : "text-gray-300"}`} />
@@ -271,7 +276,7 @@ export default function CartLayout() {
                                     item.brand ? <span className={darkMode ? "text-gray-400" : "text-gray-600"}>Brand: {item.brand}</span> : null
                                   }
                                   {item.availabilityStatus && (
-                                    <span className="text-green-600 dark:text-green-400">{item.availabilityStatus}</span>
+                                    <span className={`${darkMode ? "text-green-400" : "text-green-600"}`}>{item.availabilityStatus}</span>
                                   )}
                                 </div>
                                 {item.discountPercentage > 0 && (
@@ -281,7 +286,7 @@ export default function CartLayout() {
                                     >
                                       ${item.price.toFixed(2)}
                                     </span>
-                                    <span className="text-sm bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded">
+                                    <span className={`text-sm ${darkMode ? "bg-red-900 text-red-200" : "bg-red-100 text-red-800 "}  px-2 py-1 rounded`}>
                                       {item.discountPercentage.toFixed(0)}% OFF
                                     </span>
                                   </div>
@@ -291,7 +296,7 @@ export default function CartLayout() {
                             </div>
 
                             <div className="flex items-center justify-between mt-4">
-                              <div className="flex items-center border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+                              <div className={`flex ${darkMode ? "border-gray-600" : "border-gray-300 "} items-center border-2 rounded-lg overflow-hidden`}>
                                 <button
                                   className={`h-8 w-8 flex cursor-pointer items-center justify-center transition-colors ${darkMode ? "hover:bg-gray-700 hover:text-white" : "hover:bg-gray-200 hover:text-black"
                                     }`}
@@ -299,7 +304,7 @@ export default function CartLayout() {
                                 >
                                   <Minus className="h-3 w-3" />
                                 </button>
-                                <span className="px-3 py-1 text-sm font-medium text-center border-l border-r border-gray-300 dark:border-gray-600">
+                                <span className={`px-3 py-1 ${darkMode ? "border-gray-600" : "border-gray-300"} text-sm font-medium text-center border-l border-r `}>
                                   {item.quantity}
                                 </span>
                                 <button
@@ -351,7 +356,7 @@ export default function CartLayout() {
                       </div>
 
                       {totalSavings > 0 && (
-                        <div className="flex justify-between text-green-600 dark:text-green-400">
+                        <div className={`flex justify-between ${darkMode ? "text-green-400" : "text-green-600"}`}>
                           <span>Discount savings</span>
                           <span className="font-medium">-${totalSavings.toFixed(2)}</span>
                         </div>
@@ -361,7 +366,7 @@ export default function CartLayout() {
                         <span className={darkMode ? "text-gray-400" : "text-gray-600"}>Shipping</span>
                         <span className="font-medium">
                           {shipping === 0 ? (
-                            <span className="text-green-600 dark:text-green-400">Free</span>
+                            <span className={`${darkMode ? "text-green-400" : "text-green-600"}`}>Free</span>
                           ) : (
                             `$${shipping.toFixed(2)}`
                           )}
@@ -374,13 +379,13 @@ export default function CartLayout() {
                       </div>
 
                       {shipping === 0 && (
-                        <div className="text-xs p-2 rounded border bg-green-50 dark:bg-green-900 text-green-600 dark:text-green-300 border-green-300 dark:border-green-700">
+                        <div className={`${darkMode ? "text-green-300 border-green-700 bg-green-900" : "bg-green-50 text-green-600 border-green-300"}text-xs p-2 rounded border`}>
                           🎉 You qualify for free shipping!
                         </div>
                       )}
 
                       {subtotal < 100 && shipping > 0 && (
-                        <div className="text-xs p-2 rounded border bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300 border-blue-300 dark:border-blue-700">
+                        <div className={`${darkMode ? "bg-blue-900 text-blue-300 border-blue-700" : "bg-blue-50 text-blue-600 border-blue-300"}text-xs p-2 rounded border`}>
                           Add ${(100 - subtotal).toFixed(2)} more for free shipping
                         </div>
                       )}
