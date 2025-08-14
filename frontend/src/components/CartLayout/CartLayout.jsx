@@ -384,7 +384,7 @@ export default function CartLayout() {
                       )}
 
                       {subtotal < 100 && shipping > 0 && (
-                        <div className={`${darkMode ? "bg-blue-900 text-blue-300 border-blue-700" : "bg-blue-50 text-blue-600 border-blue-300"}text-xs p-2 rounded border`}>
+                        <div className={`${darkMode ? "bg-blue-800 text-blue-100" : "bg-blue-50 text-blue-600"} p-2 rounded `}>
                           Add ${(100 - subtotal).toFixed(2)} more for free shipping
                         </div>
                       )}
