@@ -15,14 +15,14 @@ import {
     Loader2,
     RefreshCcw,
 } from "lucide-react"
-import { ThemeContext } from "../../context/ThemeContext"
-import { ProductsContext } from "../../context/ProductsContext"
+import { ThemeContext } from "../../../context/ThemeContext"
+import { ProductsContext } from "../../../context/ProductsContext"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import { UserInfoContext } from "../../context/UserInfoContext"
-import { AppRoutes } from "../../constant/AppRoutes"
+import { UserInfoContext } from "../../../context/UserInfoContext"
+import { AppRoutes } from "../../../constant/AppRoutes"
 import { toast } from "react-toastify"
-import { AuthContext } from "../../context/AuthContext"
+import { AuthContext } from "../../../context/AuthContext"
 
 export default function ProductDetailPageCard({ product }) {
     const { darkMode } = useContext(ThemeContext)

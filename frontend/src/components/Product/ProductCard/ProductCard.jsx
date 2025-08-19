@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { ThemeContext } from "../../context/ThemeContext"
+import { ThemeContext } from "../../../context/ThemeContext"
 import { useContext } from "react"
 import { ShoppingCart, Tag } from "lucide-react"
 

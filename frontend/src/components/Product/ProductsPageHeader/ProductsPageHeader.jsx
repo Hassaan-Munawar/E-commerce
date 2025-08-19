@@ -1,12 +1,12 @@
 import { ArrowLeft, Sun, Moon, ShoppingCart, LogOut } from "lucide-react"
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../../context/ThemeContext";
-import { AuthContext } from "../../context/AuthContext";
+import { ThemeContext } from "../../../context/ThemeContext";
+import { AuthContext } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
-import supabase from "../../utils/supabase";
-import { UserInfoContext } from "../../context/UserInfoContext";
-import { LocationContext } from "../../context/LocationContext";
+import supabase from "../../../utils/supabase";
+import { UserInfoContext } from "../../../context/UserInfoContext";
+import { LocationContext } from "../../../context/LocationContext";
 
 
 export default function ProductsPageHeader() {

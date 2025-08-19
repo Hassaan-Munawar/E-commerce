@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import { ThemeContext } from "../context/ThemeContext"
 import { ProductsContext } from "../context/ProductsContext"
-import ProductCard from "../components/ProductCard/ProductCard"
-import ProductsPageHeader from "../components/ProductsPageHeader/ProductsPageHeader"
+import ProductCard from "../components/Product/ProductCard/ProductCard"
+import ProductsPageHeader from "../components/Product/ProductsPageHeader/ProductsPageHeader"
 import Loading from "../components/Loading/Loading"
 import { RefreshCcw } from "lucide-react"
 

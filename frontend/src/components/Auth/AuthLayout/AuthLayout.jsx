@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ArrowLeft, Loader2 } from "lucide-react";
-import googleIcon from "../../assets/google-icon.png";
-import supabase from "../../utils/supabase";
+import googleIcon from "../../../assets/google-icon.png";
+import supabase from "../../../utils/supabase";
 import axios from "axios"
-import { AppRoutes } from "../../constant/AppRoutes";
-import { UserInfoContext } from "../../context/UserInfoContext";
-import { LocationContext } from "../../context/LocationContext";
+import { AppRoutes } from "../../../constant/AppRoutes";
+import { UserInfoContext } from "../../../context/UserInfoContext";
+import { LocationContext } from "../../../context/LocationContext";
 
 export default function AuthLayout() {
   const [activeTab, setActiveTab] = useState("login");

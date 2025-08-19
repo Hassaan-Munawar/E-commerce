@@ -1,4 +1,4 @@
-import HomeLayout from "../components/HomeLayout/HomeLayout";
+import HomeLayout from "../components/Home/HomeLayout/HomeLayout";
 
 
 function Home() {

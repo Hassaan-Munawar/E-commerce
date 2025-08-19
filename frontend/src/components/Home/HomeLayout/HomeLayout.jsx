@@ -1,12 +1,12 @@
 import { ShoppingBag, ArrowRight, Sun, Moon, LogOut } from "lucide-react"
 import { useEffect, useRef, useState, useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext"
-import { AuthContext } from "../../context/AuthContext"
-import supabase from "../../utils/supabase"
+import supabase from "../../../utils/supabase"
 import { toast } from "react-toastify"
 import { Link } from "react-router-dom"
-import { UserInfoContext } from "../../context/UserInfoContext";
-import { LocationContext } from "../../context/LocationContext";
+import { UserInfoContext } from "../../../context/UserInfoContext";
+import { LocationContext } from "../../../context/LocationContext";
+import { ThemeContext } from "../../../context/ThemeContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function HomeLayout() {
     const { darkMode, setDarkMode } = useContext(ThemeContext)

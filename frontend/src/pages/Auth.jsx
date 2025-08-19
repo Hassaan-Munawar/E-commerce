@@ -1,4 +1,4 @@
-import AuthLayout from "../components/AuthLayout/AuthLayout"
+import AuthLayout from "../components/Auth/AuthLayout/AuthLayout"
 
 function Auth() {
   return (

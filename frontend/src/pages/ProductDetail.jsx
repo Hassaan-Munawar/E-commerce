@@ -3,8 +3,8 @@ import { Link, useParams } from "react-router-dom"
 import { ArrowLeft } from "lucide-react"
 import { ThemeContext } from "../context/ThemeContext"
 import { ProductsContext } from "../context/ProductsContext"
-import ProductDetailPageHeader from "../components/ProductDetailPageHeader/ProductDetailPageHeader"
-import ProductDetailPageCard from "../components/ProductDetailPageCard/ProductDetailPageCard"
+import ProductDetailPageHeader from "../components/ProductDetails/ProductDetailPageHeader/ProductDetailPageHeader"
+import ProductDetailPageCard from "../components/ProductDetails/ProductDetailPageCard/ProductDetailPageCard"
 import Loading from "../components/Loading/Loading"
 
 function ProductDetail() {

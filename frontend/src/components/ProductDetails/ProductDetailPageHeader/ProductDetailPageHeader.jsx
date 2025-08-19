@@ -1,12 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Sun, Moon, ShoppingCart, LogOut } from "lucide-react"
-import { AuthContext } from "../../context/AuthContext";
-import supabase from "../../utils/supabase";
+import { AuthContext } from "../../../context/AuthContext";
+import supabase from "../../../utils/supabase";
 import { toast } from "react-toastify";
-import { UserInfoContext } from "../../context/UserInfoContext";
-import { LocationContext } from "../../context/LocationContext";
+import { UserInfoContext } from "../../../context/UserInfoContext";
+import { LocationContext } from "../../../context/LocationContext";
 
 function ProductDetailPageHeader({ id }) {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
