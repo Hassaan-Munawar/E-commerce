@@ -20,7 +20,7 @@ function ProductDetail() {
   useEffect(() => {
     if (products && products.length > 0 && id) {
       setLoading(true)
-      const getProduct = products.find((item) => item._id == id)
+      const getProduct = products?.find((item) => item._id == id)
       setProduct(getProduct)
       setLoading(false)      
     }

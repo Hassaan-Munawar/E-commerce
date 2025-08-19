@@ -23,6 +23,8 @@ import { UserInfoContext } from "../../../context/UserInfoContext"
 import { AppRoutes } from "../../../constant/AppRoutes"
 import { toast } from "react-toastify"
 import { AuthContext } from "../../../context/AuthContext"
+import RelatedProducts from "../RelatedProducts/RelatedProducts"
+import CustomerReviews from "../CustomerReviews/CustomerReviews"
 
 export default function ProductDetailPageCard({ product }) {
     const { darkMode } = useContext(ThemeContext)
@@ -97,17 +99,7 @@ export default function ProductDetailPageCard({ product }) {
         ? (product.price / (1 - product.discountPercentage / 100)).toFixed(2)
         : null
 
-    // Filter related products
-    const relatedProducts = products
-        ? products
-            .filter(
-                (p) =>
-                    p._id !== product._id &&
-                    (p.category === product.category || p.brand === product.brand)
-            )
-            .sort(() => Math.random() - 0.5) // Shuffle the array
-            .slice(0, 4) // Pick any 4 products
-        : [];
+
 
     if (error && products.length === 0) {
         return (
@@ -409,83 +401,12 @@ export default function ProductDetailPageCard({ product }) {
                 </div>
             </div>
 
-            {product.reviews && product.reviews.length > 0 && (
-                <div
-                    className={`mt-8 rounded-lg shadow-sm p-6 transition-colors duration-200 ${darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
-                        }`}
-                >
-                    <p className={`text-xl font-bold mb-6 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                        Customer Reviews
-                    </p>
-                    <div className="space-y-6">
-                        {product.reviews.map((review, index) => (
-                            <div key={index}>
-                                <div className="flex gap-4 items-start">
-                                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 text-gray-700 font-semibold text-lg">
-                                        {review.reviewerName.charAt(0)}
-                                    </div>
-                                    <div className="grid gap-2 flex-1">
-                                        <div className="flex justify-between items-center">
-                                            <h3 className={`font-semibold ${darkMode ? "text-white" : "text-gray-900"}`}>
-                                                {review.reviewerName}
-                                            </h3>
-                                            <div className="flex items-center gap-0.5">{renderStars(review.rating)}</div>
-                                        </div>
-                                        <time className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                                            {formatDate(review.date)}
-                                        </time>
-                                        <p className={`leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                                            {review.comment}
-                                        </p>
-                                    </div>
-                                </div>
-                                {index < product.reviews.length - 1 && (
-                                    <div className={`border-t my-6 ${darkMode ? "border-gray-700" : "border-gray-200"}`} />
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
+            {/* Customer Reviews */}
+            <CustomerReviews product={product} />
 
-            {relatedProducts.length > 0 && (
-                <div
-                    className={`mt-8 rounded-lg shadow-sm p-6 transition-colors duration-200 ${darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
-                        }`}
-                >
-                    <p className={`text-xl font-bold mb-8 ${darkMode ? "text-white" : "text-gray-900"}`}>Related Products</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {relatedProducts.map((relatedProduct) => (
-                            <Link onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                                to={`/products/${relatedProduct._id}`} className="block" key={relatedProduct._id}>
-                                <div
-                                    className={`rounded-lg overflow-hidden h-full flex flex-col justify-between shadow-sm ${darkMode ? "bg-gray-600" : "bg-gray-100"}`}
-                                >
-                                    <img
-                                        src={getValidImageUrl(relatedProduct.images) || "/placeholder.svg?height=200&width=200"}
-                                        alt={relatedProduct.title}
-                                        className="w-full h-full object-cover"
-                                    />
-                                    <div className={`p-4 ${darkMode ? "bg-gray-700" : "bg-white"}`}>
-                                        <h3 className={`font-semibold truncate text-md mb-1  ${darkMode ? "text-white" : "text-gray-900"}`}>
-                                            {relatedProduct.title}
-                                        </h3>
-                                        <p className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                                            ${relatedProduct.price?.toFixed(2)}
-                                        </p>
-                                        <button
-                                            className={`mt-3 w-full py-2 px-4 rounded-lg text-sm font-semibold transition-colors ${darkMode ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
-                                                }`}
-                                        >
-                                            View Details
-                                        </button>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            )}
+            {/* Related Products */}
+            <RelatedProducts product={product} />
+
         </div>
     )
 }
