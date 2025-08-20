@@ -68,9 +68,8 @@ function CartItems() {
             .catch((error) => {
                 toast.error(error.message);
                 console.error(error.message);
-            }).finally(() => {
-                setLoadingCart(false)
             })
+        setLoadingCart(false)
     };
 
     const removeItem = (productId) => {
@@ -88,12 +87,11 @@ function CartItems() {
             .catch((error) => {
                 toast.error(error.message);
                 console.error(error.message);
-            }).finally(() => {
-                setLoadingCart(false)
             })
+        setLoadingCart(false)
     };
 
-    const subtotal =  cartItems.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0)
+    const subtotal = cartItems.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0)
     const shipping = subtotal > 100 ? 0 : 9.99
     const tax = subtotal * 0.08
     const total = subtotal + shipping + tax
